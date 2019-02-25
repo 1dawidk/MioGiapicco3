@@ -6,6 +6,7 @@
 #include "string"
 #include "curl/curl.h"
 #include "opencv/cv.h"
+#include "opencv/highgui.h"
 
 using namespace std;
 

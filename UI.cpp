@@ -9,7 +9,7 @@ void UI::onStart() {
 }
 
 void UI::onRun() {
-
+    cout << "Run" << endl;
 }
 
 void UI::onStop() {

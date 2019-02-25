@@ -7,11 +7,10 @@ int main() {
     UI *ui= new UI;
     ImagePusher *imagePusher= new ImagePusher;
 
-
-    ui->init();
     imagePusher->init("https://dawidkulpa.pl/projects/miogiapicco30/imgrec.php");
+    ui->init();
 
-
+    while(ui->isRunning());
 
     return 0;
 }

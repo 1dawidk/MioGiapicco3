@@ -16,7 +16,7 @@ protected:
 
 private:
     int displayingDigit;
-    int digitOnMs;
+    int digitOnUs;
 
 };
 

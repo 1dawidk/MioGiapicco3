@@ -18,7 +18,9 @@ void SevenSegmentDisplay::onRun() {
     //TODO: Set anodes(cathodes) of segments as on
 
     //Keep it on for several ms
-    Thread::pause(digitOnMs);
+    Thread::pauseUs(digitOnUs);
+
+    //TODO: Deactivate digit display
 
     //Go to next digit
     displayingDigit++;
