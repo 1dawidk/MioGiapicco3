@@ -5,12 +5,13 @@
 #include "dkulpaclibs/hw/Camera.h"
 #include "string"
 #include "curl/curl.h"
+#include "opencv/cv.h"
 
 using namespace std;
 
 class ImagePusher : public Thread {
 public:
-    void init(string &url);
+    void init(const string &url);
 protected:
     void onStart() override;
     void onRun() override;
@@ -19,6 +20,7 @@ protected:
 private:
     string url;
     Camera *camera;
+    CURL *curlHandle;
 };
 
 

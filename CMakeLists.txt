@@ -16,5 +16,5 @@ include_directories(${GTKMM_INCLUDE_DIRS})
 # Link libs directories
 link_directories(${GTKMM_LIBRARY_DIRS})
 
-add_executable(MioGiapicco main.cpp UI.cpp UI.h ImagePusher.cpp ImagePusher.h)
+add_executable(MioGiapicco main.cpp UI.cpp UI.h ImagePusher.cpp ImagePusher.h SevenSegmentDisplay.cpp SevenSegmentDisplay.h)
 target_link_libraries(MioGiapicco ${CMAKE_THREAD_LIBS_INIT} ${GTKMM_LIBRARIES} ${CURL_LIBRARIES} ${dkulpaclibs_misc_LIB} ${dkulpaclibs_hw_LIB})
