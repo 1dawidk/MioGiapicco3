@@ -4,6 +4,7 @@ project(MioGiapicco)
 set(CMAKE_CXX_STANDARD 11)
 
 # Find reqired libs
+find_library(bcm2835_lib bcm2835 REQUIRED)
 find_package(Threads REQUIRED)
 find_package(CURL REQUIRED)
 find_package(dkulpaclibs REQUIRED)
@@ -17,5 +18,5 @@ include_directories(${GTKMM_INCLUDE_DIRS})
 # Link libs directories
 link_directories(${GTKMM_LIBRARY_DIRS})
 
-add_executable(MioGiapicco main.cpp UI.cpp UI.h ImagePusher.cpp ImagePusher.h SevenSegmentDisplay.cpp SevenSegmentDisplay.h Logger.cpp Logger.h)
-target_link_libraries(MioGiapicco ${CMAKE_THREAD_LIBS_INIT} ${GTKMM_LIBRARIES} ${CURL_LIBRARIES} ${OpenCV_LIBS} ${dkulpaclibs_misc_LIB} ${dkulpaclibs_hw_LIB})
+add_executable(MioGiapicco main.cpp UI.cpp UI.h ImagePusher.cpp ImagePusher.h SevenSegmentDisplay.cpp SevenSegmentDisplay.h Logger.cpp Logger.h SunController.cpp SunController.h)
+target_link_libraries(MioGiapicco ${CMAKE_THREAD_LIBS_INIT} ${GTKMM_LIBRARIES} ${CURL_LIBRARIES} ${OpenCV_LIBS} ${dkulpaclibs_misc_LIB} ${dkulpaclibs_hw_LIB} ${bcm2835_lib})

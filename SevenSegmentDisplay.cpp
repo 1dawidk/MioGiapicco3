@@ -1,13 +1,23 @@
 #include "SevenSegmentDisplay.h"
 
-void SevenSegmentDisplay::init(int digitsNo) {
-    this->digitsNo= digitsNo;
+SevenSegmentDisplay::SevenSegmentDisplay(uint8_t *digitsPins, uint8_t *segmentsPins, uint8_t digitNo, uint8_t mode) {
+    this->digitsNo= digitNo;
+    this->digitsPins= digitsPins;
+    this->segsPins= segmentsPins;
+    this->mode= mode;
 }
 
 void SevenSegmentDisplay::onStart() {
-    //TODO: Init GPIOs
+    //Init GPIOs
+    for(int i=0; i<digitsNo; i++){
+        bcm2835_gpio_fsel(digitsPins[i], BCM2835_GPIO_FSEL_OUTP);
+    }
+    for(int i=0; i<SEGMENTS_NO; i++){
+        bcm2835_gpio_fsel(segsPins[i], BCM2835_GPIO_FSEL_OUTP);
+    }
 
-    //TODO: Compute digit on time (in ms)
+    //Compute digit on time (in us)
+    digitOnUs= 1000000/(6*digitsNo);
 
     displayingDigit= 0;
 }
