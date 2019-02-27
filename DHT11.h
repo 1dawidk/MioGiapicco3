@@ -1,0 +1,10 @@
+#ifndef MIOGIAPICCO_DHT11_H
+#define MIOGIAPICCO_DHT11_H
+
+
+class DHT11 {
+
+};
+
+
+#endif //MIOGIAPICCO_DHT11_H

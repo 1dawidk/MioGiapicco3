@@ -4,13 +4,13 @@
 #include "ImagePusher.h"
 #include "SevenSegmentDisplay.h"
 #include "SunController.h"
+#include "NJU6450Driver.h"
 
 int main() {
     UI *ui= new UI;
 
     ImagePusher *imagePusher= new ImagePusher;
-    SevenSegmentDisplay *tempDisplay;
-    SevenSegmentDisplay *humDisplay;
+    NJU6450Driver *display;
     SunController *sunController;
 
     //Create objects
