@@ -11,9 +11,9 @@ void UI::onStart() {
 
 void UI::onRun() {
     bcm2835_delay(500);
-    bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, HIGH);
+    //bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, HIGH);
     bcm2835_delay(500);
-    bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, LOW);
+    //bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, LOW);
 }
 
 void UI::onStop() {
