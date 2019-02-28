@@ -18,7 +18,7 @@ int main() {
     DHT11 *dht11;
 
     //Create objects
-    dht11= new DHT11(RPI_BPLUS_GPIO_J8_18);
+    dht11= new DHT11(RPI_BPLUS_GPIO_J8_12);
 
     sunController= new SunController;
 
