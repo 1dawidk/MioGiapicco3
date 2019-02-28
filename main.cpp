@@ -9,6 +9,8 @@
 int main() {
     UI *ui= new UI;
 
+    bcm2835_init();
+
     ImagePusher *imagePusher= new ImagePusher;
     NJU6450Driver *display;
     SunController *sunController;
