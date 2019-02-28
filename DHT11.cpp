@@ -55,7 +55,7 @@ void DHT11::onRun() {
         {
             /* shove each bit into the storage bytes */
             dht11_dat[j / 8] <<= 1;
-            if ( counter > 16 )
+            if ( counter > 26 )
                 dht11_dat[j / 8] |= 1;
             j++;
         }
