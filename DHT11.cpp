@@ -29,6 +29,7 @@ void DHT11::onRun() {
     delayMicroseconds( 40 );
     /* prepare to read the pin */
     bcm2835_gpio_fsel(dataPin, BCM2835_GPIO_FSEL_INPT);
+    bcm2835_gpio_set_pud(dataPin, BCM2835_GPIO_PUD_OFF);
 
 
     /* detect change and read data */
