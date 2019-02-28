@@ -4,6 +4,7 @@
 #include "iostream"
 #include "string"
 #include "dkulpaclibs/misc/Thread.h"
+#include "bcm2835.h"
 
 using namespace std;
 
