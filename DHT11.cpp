@@ -24,47 +24,51 @@ void DHT11::onRun() {
     bcm2835_gpio_fsel(dataPin, BCM2835_GPIO_FSEL_OUTP);
     bcm2835_gpio_write(dataPin, LOW);
     delay( 250 );
-    /* then pull it up for 40 microseconds */
     bcm2835_gpio_write(dataPin, HIGH);
-    delayMicroseconds( 40 );
+    delay( 250 );
+
+
+    /* then pull it up for 40 microseconds */
+    //bcm2835_gpio_write(dataPin, HIGH);
+    //delayMicroseconds( 40 );
     /* prepare to read the pin */
-    bcm2835_gpio_fsel(dataPin, BCM2835_GPIO_FSEL_INPT);
+    //bcm2835_gpio_fsel(dataPin, BCM2835_GPIO_FSEL_INPT);
 
 
     /* detect change and read data */
-    for ( i = 0; i < MAXTIMINGS; i++ )
-    {
-        counter = 0;
-        while ( bcm2835_gpio_lev(dataPin) == laststate )
-        {
-            counter++;
-            delayMicroseconds( 1 );
-            if ( counter == 255 )
-            {
-                break;
-            }
-        }
-        laststate = bcm2835_gpio_lev(dataPin);
+    //for ( i = 0; i < MAXTIMINGS; i++ )
+    //{
+        //counter = 0;
+        //while ( bcm2835_gpio_lev(dataPin) == laststate )
+        //{
+            //counter++;
+            //delayMicroseconds( 1 );
+          //  if ( counter == 255 )
+        //    {
+      //          break;
+    //        }
+  //      }
+//        laststate = bcm2835_gpio_lev(dataPin);
 
-        if ( counter == 255 )
-            break;
+        //if ( counter == 255 )
+      //      break;
 
         /* ignore first 3 transitions */
-        if ( (i >= 4) && (i % 2 == 0) )
-        {
+        //if ( (i >= 4) && (i % 2 == 0) )
+      //  {
             /* shove each bit into the storage bytes */
-            dht11_dat[j / 8] <<= 1;
-            if ( counter > 16 )
-                dht11_dat[j / 8] |= 1;
-            j++;
-        }
-    }
+            //dht11_dat[j / 8] <<= 1;
+           // if ( counter > 16 )
+         //       dht11_dat[j / 8] |= 1;
+       //     j++;
+     //   }
+   // }
 
     /*
      * check we read 40 bits (8bit x 5 ) + verify checksum in the last byte
      * print it out if data is good
      */
-
+/*
     cout << "Humidity: " << dht11_dat[0] << "." << dht11_dat[1] << "%%" << " Temperature: "
          << dht11_dat[2] << "." << dht11_dat[3] << "*C" << endl;
 
@@ -75,7 +79,7 @@ void DHT11::onRun() {
         cout << "Data not good, skip" << endl;
     }
 
-    Thread::pause(2000);
+    Thread::pause(2000);*/
 
 }
 
