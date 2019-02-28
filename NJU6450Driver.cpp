@@ -43,6 +43,7 @@ void NJU6450Driver::init() {
     bcm2835_delay(10);
 
     clrScr();
+    clrScr();
 
     writeCmd(NJU6450_CHIP_0, 0xaf);
     writeCmd(NJU6450_CHIP_1, 0xaf);
