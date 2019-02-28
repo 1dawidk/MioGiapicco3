@@ -10,7 +10,7 @@ int main() {
     UI *ui= new UI;
 
     bcm2835_init();
-    bcm2835_set_debug(1);
+    //bcm2835_set_debug(1);
 
     ImagePusher *imagePusher= new ImagePusher;
     NJU6450Driver *display;
