@@ -10,13 +10,9 @@ find_package(CURL REQUIRED)
 find_package(dkulpaclibs REQUIRED)
 find_package(PkgConfig)
 find_package(OpenCV REQUIRED)
-pkg_check_modules(GTKMM gtkmm-3.0)
 
 # Include libs directories
 include_directories(${GTKMM_INCLUDE_DIRS})
 
-# Link libs directories
-link_directories(${GTKMM_LIBRARY_DIRS})
-
 add_executable(MioGiapicco main.cpp UI.cpp UI.h ImagePusher.cpp ImagePusher.h Logger.cpp Logger.h SunController.cpp SunController.h NJU6450Driver.cpp NJU6450Driver.h DHT11.cpp DHT11.h)
-target_link_libraries(MioGiapicco ${CMAKE_THREAD_LIBS_INIT} ${GTKMM_LIBRARIES} ${CURL_LIBRARIES} ${OpenCV_LIBS} ${dkulpaclibs_misc_LIB} ${dkulpaclibs_hw_LIB} ${bcm2835_lib})
+target_link_libraries(MioGiapicco ${CMAKE_THREAD_LIBS_INIT}  ${CURL_LIBRARIES} ${OpenCV_LIBS} ${dkulpaclibs_misc_LIB} ${dkulpaclibs_hw_LIB} ${bcm2835_lib})
