@@ -64,11 +64,13 @@ void DHT11::onRun() {
      * check we read 40 bits (8bit x 5 ) + verify checksum in the last byte
      * print it out if data is good
      */
+
+    cout << "Humidity: " << dht11_dat[0] << "." << dht11_dat[1] << "%%" << " Temperature: "
+         << dht11_dat[2] << "." << dht11_dat[3] << "*C" << endl;
+
     if ( (j >= 40) &&
          (dht11_dat[4] == ( (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF) ) )
     {
-        cout << "Humidity: " << dht11_dat[0] << "." << dht11_dat[1] << "%%" << " Temperature: "
-                << dht11_dat[2] << "." << dht11_dat[3] << "*C" << endl;
     }else  {
         cout << "Data not good, skip" << endl;
     }
