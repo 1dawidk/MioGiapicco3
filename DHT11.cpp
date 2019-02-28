@@ -23,7 +23,7 @@ void DHT11::onRun() {
     /* pull pin down for 18 milliseconds */
     bcm2835_gpio_fsel(dataPin, BCM2835_GPIO_FSEL_OUTP);
     bcm2835_gpio_write(dataPin, LOW);
-    delay( 18 );
+    delay( 250 );
     /* then pull it up for 40 microseconds */
     bcm2835_gpio_write(dataPin, HIGH);
     delayMicroseconds( 40 );
