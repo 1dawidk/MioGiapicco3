@@ -1,12 +1,11 @@
 #include "NJU6450Driver.h"
 
-NJU6450Driver::NJU6450Driver(uint8_t *dataPins, uint8_t a0Pin, uint8_t e1Pin, uint8_t e2Pin, uint8_t rwPin,
+NJU6450Driver::NJU6450Driver(uint8_t *dataPins, uint8_t a0Pin, uint8_t e1Pin, uint8_t e2Pin,
                              uint8_t resPin){
     this->dataPins= dataPins;
     this->a0Pin= a0Pin;
     this->e1Pin= e1Pin;
     this->e2Pin= e2Pin;
-    this->rwPin= rwPin;
     this->resPin= resPin;
 }
 
@@ -42,6 +41,8 @@ void NJU6450Driver::init() {
     writeCmd(NJU6450_CHIP_0, 0xa9);
     writeCmd(NJU6450_CHIP_1, 0xa9);
     bcm2835_delay(10);
+
+    clrScr();
 
     writeCmd(NJU6450_CHIP_0, 0xaf);
     writeCmd(NJU6450_CHIP_1, 0xaf);

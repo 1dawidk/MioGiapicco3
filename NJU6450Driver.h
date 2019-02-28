@@ -12,7 +12,7 @@
 
 class NJU6450Driver {
 public:
-    NJU6450Driver(uint8_t *dataPins, uint8_t a0Pin, uint8_t e1Pin, uint8_t e2Pin, uint8_t rwPin, uint8_t resPin);
+    NJU6450Driver(uint8_t *dataPins, uint8_t a0Pin, uint8_t e1Pin, uint8_t e2Pin, uint8_t resPin);
     void init();
 
     void clrScr();
@@ -25,7 +25,6 @@ private:
     uint8_t a0Pin;
     uint8_t e1Pin;
     uint8_t e2Pin;
-    uint8_t rwPin;
     uint8_t resPin;
 };
 
