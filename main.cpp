@@ -3,8 +3,10 @@
 #include "UI.h"
 #include "ImagePusher.h"
 #include "SunController.h"
-#include "NJU6450Driver.h"
-#include "DHT11.h"
+#include "Peripherals/I2C.h"
+#include "Devices/DHT11.h"
+#include "Devices/HD44780.h"
+#include "Devices/PCA9685.h"
 
 int main() {
     UI *ui= new UI;
@@ -12,15 +14,24 @@ int main() {
     bcm2835_init();
     //bcm2835_set_debug(1);
 
-    ImagePusher *imagePusher= new ImagePusher;
-    NJU6450Driver *display;
-    SunController *sunController;
+    I2C *i2c;
+
     DHT11 *dht11;
+    HD44780 *display;
+    PCA9685 *pca9685;
+
+    SunController *sunController;
+
+    ImagePusher *imagePusher;
+
 
     //Create objects
+    i2c= new I2C()
+    imagePusher= new ImagePusher;
+    display= new HD44780(HD44780_BUS_I2C);
+    sunController= new SunController;
     dht11= new DHT11(RPI_BPLUS_GPIO_J8_12);
 
-    sunController= new SunController;
 
     //Init / Start
     //display->init();
