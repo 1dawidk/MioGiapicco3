@@ -9,6 +9,9 @@ HD44780::HD44780(uint8_t h, uint8_t w, uint8_t bus, I2C *i2c_h, uint8_t adr) {
 }
 
 void HD44780::init() {
+
+    blState= HD44780_BL_ON;
+
     writeCmd(0x03);     //Init
     writeCmd(0x03);     //Init
     writeCmd(0x03);     //Init
