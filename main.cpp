@@ -26,18 +26,24 @@ int main() {
 
 
     //Create objects
-    i2c= new I2C()
+    i2c= new I2C((uint16_t)100000);
     imagePusher= new ImagePusher;
-    display= new HD44780(HD44780_BUS_I2C);
+    display= new HD44780(2, 16, HD44780_BUS_I2C, i2c, 0x27);
+
     sunController= new SunController;
     dht11= new DHT11(RPI_BPLUS_GPIO_J8_12);
 
 
     //Init / Start
-    //display->init();
+    display->init();
+    display->write("Init...", 0);
     dht11->start();
     //imagePusher->init("https://dawidkulpa.pl/projects/miogiapicco30/imgrec.php");
     //sunController->start();
+
+    display->write("Init [Done]", 0);
+    delay(2000);
+    display->clrscr();
 
     ui->init();
 

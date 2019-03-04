@@ -20,11 +20,11 @@ using namespace std;
 
 class HD44780 {
 public:
-    HD44780(uint8_t w, uint8_t h, uint8_t bus, I2C *i2c_h=NULL, uint8_t adr=0);
+    HD44780(uint8_t h, uint8_t w, uint8_t bus, I2C *i2c_h=NULL, uint8_t adr=0);
 
     void init();
     void write(string s, uint8_t line);
-    void writexy(uint8_t x, uint8_t y, string s);
+    void clrscr();
 
 private:
     void writeCmd(uint8_t cmd);

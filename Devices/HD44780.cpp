@@ -1,6 +1,6 @@
 #include "HD44780.h"
 
-HD44780::HD44780(uint8_t w, uint8_t h, uint8_t bus, I2C *i2c_h, uint8_t adr) {
+HD44780::HD44780(uint8_t h, uint8_t w, uint8_t bus, I2C *i2c_h, uint8_t adr) {
     this->busType= bus;
     this->w= w;
     this->h= h;
@@ -33,8 +33,8 @@ void HD44780::write(string s, uint8_t line) {
     }
 }
 
-void HD44780::writexy(uint8_t x, uint8_t y, string s) {
-
+void HD44780::clrscr() {
+    writeCmd(0x01);
 }
 
 void HD44780::writeCmd(uint8_t cmd) {
