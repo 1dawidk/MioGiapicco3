@@ -10,8 +10,8 @@ void UI::onStart() {
 }
 
 void UI::onRun() {
-    display->write("Temperature: 21*C", 0);
-    display->write("Humidity: 44%%", 1);
+    display->write("Temp: 21*C", 0);
+    display->write("Hum:  44%", 1);
     Thread::pause(2000);
 }
 
