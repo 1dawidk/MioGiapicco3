@@ -47,6 +47,7 @@ int main() {
 
     ui->init(display);
 
+    while (ui->isRunning());
     ui->stop();
 
     bcm2835_close();
