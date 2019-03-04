@@ -1,19 +1,18 @@
 #include "UI.h"
 
-void UI::init() {
+void UI::init(HD44780 *disp) {
+    this->display= disp;
     this->start();
 }
 
 void UI::onStart() {
     cout << logo;
-    bcm2835_gpio_fsel(RPI_BPLUS_GPIO_J8_07, BCM2835_GPIO_FSEL_OUTP);
 }
 
 void UI::onRun() {
-    bcm2835_delay(500);
-    //bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, HIGH);
-    bcm2835_delay(500);
-    //bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, LOW);
+    display->write("Temperature: 21*C", 0);
+    display->write("Humidity: 44%%", 1);
+    Thread::pause(2000);
 }
 
 void UI::onStop() {

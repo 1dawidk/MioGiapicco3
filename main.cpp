@@ -45,10 +45,8 @@ int main() {
     delay(2000);
     display->clrscr();
 
-    ui->init();
+    ui->init(display);
 
-
-    getchar();
     ui->stop();
 
     bcm2835_close();

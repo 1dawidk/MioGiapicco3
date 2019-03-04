@@ -5,12 +5,13 @@
 #include "string"
 #include "dkulpaclibs/misc/Thread.h"
 #include "bcm2835.h"
+#include "Devices/HD44780.h"
 
 using namespace std;
 
 class UI : public Thread {
 public:
-    void init();
+    void init(HD44780 *disp);
 
 protected:
     void onStart() override;
@@ -18,6 +19,9 @@ protected:
     void onStop() override;
 
 private:
+    HD44780 *display;
+
+
     const string logo= "  __  __ _          _____ _             _                       ____   ___  \n"
                        " |  \\/  (_)        / ____(_)           (_)                     |___ \\ / _ \\ \n"
                        " | \\  / |_  ___   | |  __ _  __ _ _ __  _  ___ ___ ___           __) | | | |\n"
