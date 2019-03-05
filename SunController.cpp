@@ -19,3 +19,8 @@ void SunController::onRun() {
 void SunController::onStop() {
 
 }
+
+
+int SunController::getState() {
+    return 78;
+}

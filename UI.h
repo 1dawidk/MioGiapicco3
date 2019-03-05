@@ -10,6 +10,8 @@
 #include "Devices/HD44780.h"
 #include "ButtonsManager.h"
 #include "Devices/DHT22.h"
+#include "SunController.h"
+#include "WateringController.h"
 
 #define BUTTON_UP_NO    1
 #define BUTTON_DOWN_NO  0
@@ -22,7 +24,7 @@ using namespace std;
 
 class UI : public Thread {
 public:
-    void init(HD44780 *disp, DHT22 *dht22);
+    void init(HD44780 *disp, DHT22 *dht22, SunController *sunController, WateringController *wateringController);
 
 protected:
     void onStart() override;
@@ -33,12 +35,15 @@ private:
     HD44780 *display;
     ButtonsManager *buttonsManager;
     DHT22 *dht22;
+    SunController *sunController;
+    WateringController *wateringController;
     int8_t menuPointer;
+    int8_t shownMenuPointer;
 
-    uint8_t refReq;
-    int menuDatas[MENU_ITEMS_NO];
+    string menuDatas[MENU_ITEMS_NO];
 
     const string menuNames[MENU_ITEMS_NO]= {"Temp", "Hum", "Watering", "Sun", "Time"};
+    const string menuUnits[MENU_ITEMS_NO]= {"*C", "%", "%", "%", ""};
     const string logo= "  __  __ _          _____ _             _                       ____   ___  \n"
                        " |  \\/  (_)        / ____(_)           (_)                     |___ \\ / _ \\ \n"
                        " | \\  / |_  ___   | |  __ _  __ _ _ __  _  ___ ___ ___           __) | | | |\n"

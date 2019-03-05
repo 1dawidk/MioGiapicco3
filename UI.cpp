@@ -1,8 +1,10 @@
 #include "UI.h"
 
-void UI::init(HD44780 *disp, DHT22* dht22) {
+void UI::init(HD44780 *disp, DHT22* dht22, SunController *sunController, WateringController *wateringController) {
     this->display= disp;
     this->dht22= dht22;
+    this->sunController= sunController;
+    this->wateringController= wateringController;
     this->start();
 }
 
@@ -16,15 +18,26 @@ void UI::onStart() {
 
     cout << logo;
     menuPointer=0;
-    refReq= 0;
+    shownMenuPointer=122;
 }
 
 void UI::onRun() {
-    if(refReq) {
-        display->write(menuNames[menuPointer] + ": " + to_string(menuDatas[menuPointer]), 0);
-        display->write(menuNames[menuPointer + 1] + ": " + to_string(menuDatas[menuPointer]), 1);
-        refReq=0;
+
+    //Refresh menu data
+    menuDatas[0]= to_string((int)dht22->getTemperature());
+    menuDatas[1]= to_string((int)dht22->getHumidity());
+    menuDatas[2]= to_string(wateringController->getState());
+    menuDatas[3]= to_string(sunController->getState());
+    menuDatas[4]= "21:15";
+
+    //Refresh screen if needed
+    if(shownMenuPointer!=menuPointer) {
+        display->clrscr();
+        shownMenuPointer= menuPointer;
     }
+    display->write(menuNames[menuPointer] + ": " + menuDatas[menuPointer]+menuUnits[menuPointer], 0);
+    display->write(menuNames[menuPointer + 1] + ": " + menuDatas[menuPointer]+menuUnits[menuPointer+1], 1);
+
 
     int buttonPressed= buttonsManager->getEvent();
 
@@ -34,20 +47,16 @@ void UI::onRun() {
         case BUTTON_UP_NO:
             if(menuPointer>0)
                 menuPointer--;
-            refReq= 1;
             break;
         case BUTTON_DOWN_NO:
             if(menuPointer<MENU_ITEMS_NO-2)
                 menuPointer++;
-            refReq= 1;
             break;
         case BUTTON_LEFT_NO:
             cout << "LEFT button pressed" << endl;
-            refReq= 1;
             break;
         case BUTTON_RIGHT_NO:
             cout << "RIGHT button pressed" << endl;
-            refReq= 1;
             break;
     }
 

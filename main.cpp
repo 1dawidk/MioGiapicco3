@@ -21,6 +21,7 @@ int main() {
     PCA9685 *pca9685;
 
     SunController *sunController;
+    WateringController *wateringController;
 
     ImagePusher *imagePusher;
 
@@ -31,6 +32,7 @@ int main() {
     display= new HD44780(2, 16, HD44780_BUS_I2C, i2c, 0x27);
 
     sunController= new SunController;
+    wateringController= new WateringController;
     dht22= new DHT22(RPI_BPLUS_GPIO_J8_15);
 
 
@@ -42,10 +44,10 @@ int main() {
     //sunController->start();
 
     display->write("Init [Done]", 0);
-    delay(2000);
+    delay(1000);
     display->clrscr();
 
-    ui->init(display, dht22);
+    ui->init(display, dht22, sunController, wateringController);
 
     while (ui->isRunning());
     ui->stop();

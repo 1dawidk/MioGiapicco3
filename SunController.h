@@ -6,11 +6,14 @@
 
 class SunController : public Thread {
 public:
+    int getState();
 
 protected:
     void onStart() override;
     void onRun() override;
     void onStop() override;
+
+    uint8_t state;
 
 };
 
