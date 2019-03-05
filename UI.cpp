@@ -19,10 +19,8 @@ void UI::onStart() {
 }
 
 void UI::onRun() {
-    stringstream ss;
-
-    display->write(menuNames[menuPointer]+": "+to_string((int)dht22->getTemperature()), 0);
-    display->write(menuNames[menuPointer+1]+": "+to_string((int)dht22->getHumidity()), 1);
+    display->write(menuNames[menuPointer]+": ", 0);
+    display->write(menuNames[menuPointer+1]+": ", 1);
 
     int buttonPressed= buttonsManager->getEvent();
 
@@ -30,10 +28,12 @@ void UI::onRun() {
         case -1:
             break;
         case BUTTON_UP_NO:
-            cout << "UP button pressed" << endl;
+            if(menuPointer>0)
+                menuPointer--;
             break;
         case BUTTON_DOWN_NO:
-            cout << "DOWN button pressed" << endl;
+            if(menuPointer<MENU_ITEMS_NO-2)
+                menuPointer++;
             break;
         case BUTTON_LEFT_NO:
             cout << "LEFT button pressed" << endl;

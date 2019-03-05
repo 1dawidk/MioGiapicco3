@@ -11,10 +11,12 @@
 #include "ButtonsManager.h"
 #include "Devices/DHT22.h"
 
-#define BUTTON_UP_NO    0
-#define BUTTON_DOWN_NO  1
-#define BUTTON_LEFT_NO  2
-#define BUTTON_RIGHT_NO 3
+#define BUTTON_UP_NO    1
+#define BUTTON_DOWN_NO  0
+#define BUTTON_LEFT_NO  3
+#define BUTTON_RIGHT_NO 2
+
+#define MENU_ITEMS_NO   5
 
 using namespace std;
 
@@ -31,7 +33,7 @@ private:
     HD44780 *display;
     ButtonsManager *buttonsManager;
     DHT22 *dht22;
-    uint8_t menuPointer;
+    int8_t menuPointer;
 
     const string menuNames[5]= {"Temp", "Hum", "Watering", "Sun", "Time"};
     const string logo= "  __  __ _          _____ _             _                       ____   ___  \n"
