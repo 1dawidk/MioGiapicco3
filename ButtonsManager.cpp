@@ -22,6 +22,7 @@ void ButtonsManager::registerBtn(uint8_t pin, uint8_t mode) {
 }
 
 void ButtonsManager::onStart() {
+    lastPressedButton=128;
 }
 
 void ButtonsManager::onRun() {
@@ -31,11 +32,11 @@ void ButtonsManager::onRun() {
     for(uint8_t i=0; i<btnsNo; i++){
         level= bcm2835_gpio_lev(btnsPin[i]);
 
-        if(level==LOW && level==btnsLastState[i] &&
-                (pressEvents.empty() || pressEvents.back()!=i)){
+        if(level==LOW && level==btnsLastState[i] && lastPressedButton!= i){
             pthread_mutex_lock(&getMutex);
             pressEvents.push_back(i);
             pthread_mutex_unlock(&getMutex);
+            lastPressedButton= i;
         }
         btnsLastState[i]= level;
     }

@@ -27,6 +27,7 @@ private:
     uint8_t btnsNo;
     uint8_t btnsMode[12];
     uint8_t btnsLastState[12];
+    uint8_t lastPressedButton;
 
     vector<uint8_t> pressEvents;
 
