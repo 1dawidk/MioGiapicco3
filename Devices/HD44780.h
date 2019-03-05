@@ -24,6 +24,7 @@ public:
 
     void init();
     void write(string s, uint8_t line);
+    void writexy(uint8_t x, uint8_t y, string s);
     void clrscr();
 
 private:

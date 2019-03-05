@@ -6,6 +6,7 @@
 #include "iostream"
 #include "string"
 #include "dkulpaclibs/misc/Thread.h"
+#include "dkulpaclibs/misc/Clock.h"
 #include "bcm2835.h"
 #include "Devices/HD44780.h"
 #include "ButtonsManager.h"
@@ -32,6 +33,10 @@ protected:
     void onStop() override;
 
 private:
+    void refreshData();
+    void refreshScreen();
+    void testCtrlButtons();
+
     HD44780 *display;
     ButtonsManager *buttonsManager;
     DHT22 *dht22;
@@ -44,6 +49,7 @@ private:
 
     const string menuNames[MENU_ITEMS_NO]= {"Temp", "Hum", "Watering", "Sun", "Time"};
     const string menuUnits[MENU_ITEMS_NO]= {"*C", "%", "%", "%", ""};
+    const uint8_t menuEditable[MENU_ITEMS_NO]= {0, 0, 1, 1, 0};
     const string logo= "  __  __ _          _____ _             _                       ____\n"
                        " |  \\/  (_)        / ____(_)           (_)                     |___ \\\n"
                        " | \\  / |_  ___   | |  __ _  __ _ _ __  _  ___ ___ ___           __) |\n"

@@ -36,6 +36,17 @@ void HD44780::write(string s, uint8_t line) {
     }
 }
 
+void HD44780::writexy(uint8_t x, uint8_t y, string s) {
+    if(y==0)
+        writeCmd((uint8_t)0x80+x);
+    else
+        writeCmd((uint8_t)0xC0+x);
+
+    for(int i=0; i<s.length(); i++){
+        writeData((uint8_t)s[i]);
+    }
+}
+
 void HD44780::clrscr() {
     writeCmd(0x01);
 }

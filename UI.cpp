@@ -23,14 +23,27 @@ void UI::onStart() {
 
 void UI::onRun() {
 
-    //Refresh menu data
+    refreshData();
+    refreshScreen();
+    testCtrlButtons();
+
+    Thread::pause(200);
+}
+
+void UI::onStop() {
+
+}
+
+void UI::refreshData() {
     menuDatas[0]= to_string((int)dht22->getTemperature());
     menuDatas[1]= to_string((int)dht22->getHumidity());
     menuDatas[2]= to_string(wateringController->getState());
     menuDatas[3]= to_string(sunController->getState());
-    menuDatas[4]= "21:15";
+    int time= Clock::GetDayMinutes();
+    menuDatas[4]= to_string(time/60)+":"+to_string(time%60);
+}
 
-    //Refresh screen if needed
+void UI::refreshScreen() {
     if(shownMenuPointer!=menuPointer) {
         display->clrscr();
         shownMenuPointer= menuPointer;
@@ -38,7 +51,10 @@ void UI::onRun() {
     display->write(menuNames[menuPointer] + ": " + menuDatas[menuPointer]+menuUnits[menuPointer], 0);
     display->write(menuNames[menuPointer + 1] + ": " + menuDatas[menuPointer+1]+menuUnits[menuPointer+1], 1);
 
+    display->writexy(15, 0, "<");
+}
 
+void UI::testCtrlButtons() {
     int buttonPressed= buttonsManager->getEvent();
 
     switch (buttonPressed){
@@ -59,10 +75,4 @@ void UI::onRun() {
             cout << "RIGHT button pressed" << endl;
             break;
     }
-
-    Thread::pause(200);
-}
-
-void UI::onStop() {
-
 }
