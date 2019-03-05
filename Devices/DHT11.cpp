@@ -67,9 +67,9 @@ void DHT11::onRun() {
      */
 
     uint16_t tmp= ((uint16_t)dht11_dat[0]<<8) | (uint16_t)dht11_dat[1];
-    float temp= (float)tmp/10;
-    tmp= ((uint16_t)dht11_dat[2]<<8) | (uint16_t)dht11_dat[3];
     float hum= (float)tmp/10;
+    tmp= ((uint16_t)dht11_dat[2]<<8) | (uint16_t)dht11_dat[3];
+    float temp= (float)tmp/10;
 
     cout << "Humidity: " << hum << "%%" << " Temperature: "
          << temp << "*C" << endl;
@@ -81,7 +81,7 @@ void DHT11::onRun() {
         cout << "Data not good, skip" << endl;
     }
 
-    Thread::pause(2000);
+    Thread::pause(5000);
 
 }
 
