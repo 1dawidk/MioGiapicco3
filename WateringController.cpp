@@ -8,6 +8,10 @@ int WateringController::getState() {
     return 10;
 }
 
+void WateringController::setState(uint8_t state) {
+    this->state= state;
+}
+
 void WateringController::onStart() {
 
 }

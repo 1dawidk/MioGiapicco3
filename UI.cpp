@@ -37,10 +37,20 @@ void UI::onStop() {
 void UI::refreshData() {
     menuDatas[0]= to_string((int)dht22->getTemperature());
     menuDatas[1]= to_string((int)dht22->getHumidity());
-    menuDatas[2]= to_string(wateringController->getState());
+    if(wateringController->getState()==0)
+        menuDatas[2]= "Off";
+    else
+        menuDatas[2]= "On";
+
     menuDatas[3]= to_string(sunController->getState());
+
     int time= Clock::GetDayMinutes();
-    menuDatas[4]= to_string(time/60)+":"+to_string(time%60);
+    if(time/60<10)
+        menuDatas[4]="0";
+    menuDatas[4]= to_string(time/60)+":";
+    if(time%60<10)
+        menuDatas[4]+="0";
+    menuDatas[4]+=to_string(time%60);
 }
 
 void UI::refreshScreen() {
@@ -69,10 +79,12 @@ void UI::testCtrlButtons() {
                 menuPointer++;
             break;
         case BUTTON_LEFT_NO:
-            cout << "LEFT button pressed" << endl;
+            if(menuPointer==2)
+                wateringController->setState(0);
             break;
         case BUTTON_RIGHT_NO:
-            cout << "RIGHT button pressed" << endl;
+            if(menuPointer==2)
+                wateringController->setState(1);
             break;
     }
 }

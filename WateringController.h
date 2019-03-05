@@ -10,6 +10,7 @@ class WateringController : public Thread {
 public:
     WateringController(PCA9685 *pca9685);
     int getState();
+    void setState(uint8_t state);
 
 protected:
     void onStart() override;
