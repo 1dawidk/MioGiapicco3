@@ -13,6 +13,7 @@ using namespace std;
 class ButtonsManager : public Thread {
 
 public:
+    ButtonsManager();
     void registerBtn(uint8_t pin, uint8_t mode);
     int getEvent();
 

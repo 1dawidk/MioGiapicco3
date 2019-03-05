@@ -1,5 +1,9 @@
 #include "ButtonsManager.h"
 
+ButtonsManager::ButtonsManager() {
+    btnsNo=0;
+}
+
 void ButtonsManager::registerBtn(uint8_t pin, uint8_t mode) {
     if(btnsNo<12) {
         btnsPin[btnsNo] = pin;
@@ -18,7 +22,6 @@ void ButtonsManager::registerBtn(uint8_t pin, uint8_t mode) {
 }
 
 void ButtonsManager::onStart() {
-    btnsNo=0;
 }
 
 void ButtonsManager::onRun() {

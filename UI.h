@@ -1,6 +1,8 @@
 #ifndef MIOGIAPICCO_UI_H
 #define MIOGIAPICCO_UI_H
 
+#include <iomanip>
+#include <sstream>
 #include "iostream"
 #include "string"
 #include "dkulpaclibs/misc/Thread.h"
