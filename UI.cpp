@@ -25,7 +25,7 @@ void UI::onRun() {
     display->write(menuNames[menuPointer+1]+": "+to_string((int)dht22->getHumidity()), 1);
 
     if(buttonsManager->getEvent()!=-1){
-        cout << "Press event occurred :)";
+        cout << "Press event occurred :)" << endl;
     }
 
     Thread::pause(200);
