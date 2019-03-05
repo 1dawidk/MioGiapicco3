@@ -66,8 +66,13 @@ void DHT11::onRun() {
      * print it out if data is good
      */
 
-    cout << "Humidity: " << dht11_dat[0] << "." << dht11_dat[1] << "%%" << " Temperature: "
-         << dht11_dat[2] << "." << dht11_dat[3] << "*C" << endl;
+    uint16_t tmp= ((uint16_t)dht11_dat[0]<<8) | (uint16_t)dht11_dat[1];
+    float temp= (float)tmp/10;
+    tmp= ((uint16_t)dht11_dat[2]<<8) | (uint16_t)dht11_dat[3];
+    float hum= (float)tmp/10;
+
+    cout << "Humidity: " << hum << "%%" << " Temperature: "
+         << temp << "*C" << endl;
 
     if ( (j >= 40) &&
          (dht11_dat[4] == ( (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF) ) )
