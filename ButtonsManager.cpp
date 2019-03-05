@@ -37,9 +37,12 @@ void ButtonsManager::onRun() {
             pressEvents.push_back(i);
             pthread_mutex_unlock(&getMutex);
             lastPressedButton= i;
+        } else if(level==HIGH && lastPressedButton==i && btnsLastState[i]==LOW){
+            lastPressedButton= 128;
         }
         btnsLastState[i]= level;
     }
+
 
     Thread::pause(18);
 }
