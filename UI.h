@@ -11,6 +11,11 @@
 #include "ButtonsManager.h"
 #include "Devices/DHT22.h"
 
+#define BUTTON_UP_NO    0
+#define BUTTON_DOWN_NO  1
+#define BUTTON_LEFT_NO  2
+#define BUTTON_RIGHT_NO 3
+
 using namespace std;
 
 class UI : public Thread {
