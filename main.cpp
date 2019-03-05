@@ -31,7 +31,7 @@ int main() {
     display= new HD44780(2, 16, HD44780_BUS_I2C, i2c, 0x27);
 
     sunController= new SunController;
-    dht11= new DHT11(RPI_BPLUS_GPIO_J8_12);
+    dht11= new DHT11(RPI_BPLUS_GPIO_J8_15);
 
 
     //Init / Start

@@ -6,6 +6,7 @@
 #include "dkulpaclibs/misc/Thread.h"
 #include "bcm2835.h"
 #include "Devices/HD44780.h"
+#include "ButtonsManager.h"
 
 using namespace std;
 
@@ -20,8 +21,10 @@ protected:
 
 private:
     HD44780 *display;
+    ButtonsManager *buttonsManager;
+    uint8_t menuPointer;
 
-
+    const string menuNames[5]= {"Temp", "Hum", "Watering", "Sun", "Time"};
     const string logo= "  __  __ _          _____ _             _                       ____   ___  \n"
                        " |  \\/  (_)        / ____(_)           (_)                     |___ \\ / _ \\ \n"
                        " | \\  / |_  ___   | |  __ _  __ _ _ __  _  ___ ___ ___           __) | | | |\n"
