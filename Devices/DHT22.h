@@ -1,5 +1,5 @@
-#ifndef MIOGIAPICCO_DHT11_H
-#define MIOGIAPICCO_DHT11_H
+#ifndef MIOGIAPICCO_DHT22_H
+#define MIOGIAPICCO_DHT22_H
 
 
 #include <cstdint>
@@ -14,9 +14,12 @@
 
 using namespace std;
 
-class DHT11 : public Thread {
+class DHT22 : public Thread {
 public:
-    DHT11(uint8_t dataPin);
+    DHT22(uint8_t dataPin);
+
+    float getTemperature();
+    float getHumidity();
 
 protected:
     void onStart() override;
@@ -27,6 +30,10 @@ protected:
 
 private:
     uint8_t  dataPin;
+    float temp;
+    float hum;
+
+    pthread_mutex_t readMutex;
 };
 
 

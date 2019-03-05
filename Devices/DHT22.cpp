@@ -1,16 +1,17 @@
 #include <bcm2835.h>
-#include "DHT11.h"
+#include "DHT22.h"
 
-DHT11::DHT11(uint8_t dataPin) {
+DHT22::DHT22(uint8_t dataPin) {
     this->dataPin= dataPin;
 }
 
-void DHT11::onStart() {
+void DHT22::onStart() {
+    readMutex= PTHREAD_MUTEX_INITIALIZER;
     bcm2835_gpio_fsel(dataPin, BCM2835_GPIO_FSEL_OUTP);
     bcm2835_gpio_write(dataPin, HIGH);
 }
 
-void DHT11::onRun() {
+void DHT22::onRun() {
     int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 
     uint8_t laststate	= HIGH;
@@ -66,25 +67,43 @@ void DHT11::onRun() {
      * print it out if data is good
      */
 
-    uint16_t tmp= ((uint16_t)dht11_dat[0]<<8) | (uint16_t)dht11_dat[1];
-    float hum= (float)tmp/10;
-    tmp= ((uint16_t)dht11_dat[2]<<8) | (uint16_t)dht11_dat[3];
-    float temp= (float)tmp/10;
-
-    cout << "Humidity: " << hum << "%%" << " Temperature: "
-         << temp << "*C" << endl;
-
-    if ( (j >= 40) &&
-         (dht11_dat[4] == ( (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF) ) )
+    if ( (j >= 40) && (dht11_dat[4] == ( (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF) ) )
     {
+        uint16_t humTmp= ((uint16_t)dht11_dat[0]<<8) | (uint16_t)dht11_dat[1];
+        uint16_t tempTmp= ((uint16_t)dht11_dat[2]<<8) | (uint16_t)dht11_dat[3];
+
+        pthread_mutex_lock(&readMutex);
+        hum= (float)humTmp/10;
+        temp= (float)tempTmp/10;
+        pthread_mutex_unlock(&readMutex);
+
     }else  {
-        cout << "Data not good, skip" << endl;
     }
 
     Thread::pause(5000);
 
 }
 
-void DHT11::onStop() {
+void DHT22::onStop() {
 
+}
+
+float DHT22::getTemperature() {
+    float t;
+
+    pthread_mutex_lock(&readMutex);
+    t= temp;
+    pthread_mutex_unlock(&readMutex);
+
+    return t;
+}
+
+float DHT22::getHumidity(){
+    float h;
+
+    pthread_mutex_lock(&readMutex);
+    h= hum;
+    pthread_mutex_unlock(&readMutex);
+
+    return h;
 }

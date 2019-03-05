@@ -29,7 +29,9 @@ void ButtonsManager::onRun() {
         level= bcm2835_gpio_lev(btnsPin[i]);
 
         if(level==LOW && level==btnsLastState[i]){
+            pthread_mutex_lock(&getMutex);
             pressEvents.push_back(i);
+            pthread_mutex_unlock(&getMutex);
         }
         btnsLastState[i]= level;
     }
@@ -45,8 +47,10 @@ int ButtonsManager::getEvent() {
     int idx=-1;
 
     if(!pressEvents.empty()){
+        pthread_mutex_lock(&getMutex);
         idx= pressEvents[0];
         pressEvents.erase(pressEvents.begin());
+        pthread_mutex_unlock(&getMutex);
     }
 
     return idx;

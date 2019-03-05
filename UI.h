@@ -7,12 +7,13 @@
 #include "bcm2835.h"
 #include "Devices/HD44780.h"
 #include "ButtonsManager.h"
+#include "Devices/DHT22.h"
 
 using namespace std;
 
 class UI : public Thread {
 public:
-    void init(HD44780 *disp);
+    void init(HD44780 *disp, DHT22 *dht22);
 
 protected:
     void onStart() override;
@@ -22,6 +23,7 @@ protected:
 private:
     HD44780 *display;
     ButtonsManager *buttonsManager;
+    DHT22 *dht22;
     uint8_t menuPointer;
 
     const string menuNames[5]= {"Temp", "Hum", "Watering", "Sun", "Time"};

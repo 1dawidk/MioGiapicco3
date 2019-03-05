@@ -1,7 +1,8 @@
 #include "UI.h"
 
-void UI::init(HD44780 *disp) {
+void UI::init(HD44780 *disp, DHT22* dht22) {
     this->display= disp;
+    this->dht22= dht22;
     this->start();
 }
 
@@ -18,14 +19,14 @@ void UI::onStart() {
 }
 
 void UI::onRun() {
-    display->write(menuNames[menuPointer]+": ", 0);
-    display->write(menuNames[menuPointer+1]+": ", 1);
+    display->write(menuNames[menuPointer]+": "+to_string(dht22->getTemperature()), 0);
+    display->write(menuNames[menuPointer+1]+": "+to_string(dht22->getHumidity()), 1);
 
     if(buttonsManager->getEvent()!=-1){
         cout << "Press event occurred :)";
     }
 
-    Thread::pause(20);
+    Thread::pause(200);
 }
 
 void UI::onStop() {

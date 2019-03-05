@@ -28,6 +28,8 @@ private:
     uint8_t btnsLastState[12];
 
     vector<uint8_t> pressEvents;
+
+    pthread_mutex_t getMutex;
 };
 
 

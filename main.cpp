@@ -4,7 +4,7 @@
 #include "ImagePusher.h"
 #include "SunController.h"
 #include "Peripherals/I2C.h"
-#include "Devices/DHT11.h"
+#include "Devices/DHT22.h"
 #include "Devices/HD44780.h"
 #include "Devices/PCA9685.h"
 
@@ -16,7 +16,7 @@ int main() {
 
     I2C *i2c;
 
-    DHT11 *dht11;
+    DHT22 *dht22;
     HD44780 *display;
     PCA9685 *pca9685;
 
@@ -31,13 +31,13 @@ int main() {
     display= new HD44780(2, 16, HD44780_BUS_I2C, i2c, 0x27);
 
     sunController= new SunController;
-    dht11= new DHT11(RPI_BPLUS_GPIO_J8_15);
+    dht22= new DHT22(RPI_BPLUS_GPIO_J8_15);
 
 
     //Init / Start
     display->init();
     display->write("Init...", 0);
-    dht11->start();
+    dht22->start();
     //imagePusher->init("https://dawidkulpa.pl/projects/miogiapicco30/imgrec.php");
     //sunController->start();
 
@@ -45,7 +45,7 @@ int main() {
     delay(2000);
     display->clrscr();
 
-    ui->init(display);
+    ui->init(display, dht22);
 
     while (ui->isRunning());
     ui->stop();
