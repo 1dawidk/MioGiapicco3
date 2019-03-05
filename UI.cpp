@@ -41,14 +41,15 @@ void UI::refreshData() {
     if(wateringController->getState()==0)
         menuDatas[2]= "Off";
     else
-        menuDatas[2]= "On";
+        menuDatas[2]= "On ";
 
     menuDatas[3]= to_string(sunController->getState());
 
     int time= Clock::GetDayMinutes();
+    menuDatas[4]="";
     if(time/60<10)
         menuDatas[4]="0";
-    menuDatas[4]= to_string(time/60)+":";
+    menuDatas[4]+= to_string(time/60)+":";
     if(time%60<10)
         menuDatas[4]+="0";
     menuDatas[4]+=to_string(time%60);
