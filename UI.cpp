@@ -37,6 +37,7 @@ void UI::onStop() {
 void UI::refreshData() {
     menuDatas[0]= to_string((int)dht22->getTemperature());
     menuDatas[1]= to_string((int)dht22->getHumidity());
+
     if(wateringController->getState()==0)
         menuDatas[2]= "Off";
     else

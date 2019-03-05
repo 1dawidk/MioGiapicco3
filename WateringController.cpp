@@ -5,7 +5,7 @@ WateringController::WateringController(PCA9685 *pca9685) {
 }
 
 int WateringController::getState() {
-    return 10;
+    return state;
 }
 
 void WateringController::setState(uint8_t state) {

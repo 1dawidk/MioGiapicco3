@@ -48,7 +48,7 @@ private:
     string menuDatas[MENU_ITEMS_NO];
 
     const string menuNames[MENU_ITEMS_NO]= {"Temp", "Hum", "Watering", "Sun", "Time"};
-    const string menuUnits[MENU_ITEMS_NO]= {"*C", "%", "%", "%", ""};
+    const string menuUnits[MENU_ITEMS_NO]= {"*C", "%", "", "%", ""};
     const string logo= "  __  __ _          _____ _             _                       ____\n"
                        " |  \\/  (_)        / ____(_)           (_)                     |___ \\\n"
                        " | \\  / |_  ___   | |  __ _  __ _ _ __  _  ___ ___ ___           __) |\n"
