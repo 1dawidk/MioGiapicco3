@@ -36,7 +36,7 @@ void UI::onRun() {
         shownMenuPointer= menuPointer;
     }
     display->write(menuNames[menuPointer] + ": " + menuDatas[menuPointer]+menuUnits[menuPointer], 0);
-    display->write(menuNames[menuPointer + 1] + ": " + menuDatas[menuPointer]+menuUnits[menuPointer+1], 1);
+    display->write(menuNames[menuPointer + 1] + ": " + menuDatas[menuPointer+1]+menuUnits[menuPointer+1], 1);
 
 
     int buttonPressed= buttonsManager->getEvent();

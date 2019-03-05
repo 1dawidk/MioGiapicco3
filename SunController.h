@@ -3,6 +3,7 @@
 
 #include "dkulpaclibs/misc/Thread.h"
 #include "bcm2835.h"
+#include "Devices/PCA9685.h"
 
 class SunController : public Thread {
 public:
@@ -13,6 +14,8 @@ protected:
     void onRun() override;
     void onStop() override;
 
+private:
+    PCA9685 *pca9685;
     uint8_t state;
 
 };
