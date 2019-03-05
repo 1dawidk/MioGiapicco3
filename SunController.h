@@ -7,6 +7,7 @@
 
 class SunController : public Thread {
 public:
+    SunController(PCA9685 *pca9685);
     int getState();
 
 protected:

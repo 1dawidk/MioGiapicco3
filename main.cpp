@@ -28,13 +28,14 @@ int main() {
 
     //Create objects
     i2c= new I2C((uint16_t)100000);
-    imagePusher= new ImagePusher;
     display= new HD44780(2, 16, HD44780_BUS_I2C, i2c, 0x27);
+    pca9685= new PCA9685(i2c, 0x00);
 
-    sunController= new SunController;
-    wateringController= new WateringController;
+    sunController= new SunController(pca9685);
+    wateringController= new WateringController(pca9685);
     dht22= new DHT22(RPI_BPLUS_GPIO_J8_15);
 
+    imagePusher= new ImagePusher;
 
     //Init / Start
     display->init();
