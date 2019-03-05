@@ -11,6 +11,8 @@ void ButtonsManager::registerBtn(uint8_t pin, uint8_t mode) {
         else
             bcm2835_gpio_set_pud(pin, BCM2835_GPIO_PUD_DOWN);
 
+        btnsLastState[btnsNo]= HIGH;
+
         btnsNo++;
     }
 }
@@ -26,10 +28,10 @@ void ButtonsManager::onRun() {
     for(uint8_t i=0; i<btnsNo; i++){
         level= bcm2835_gpio_lev(btnsPin[i]);
 
-        if(level==HIGH && level==btnsLastState[i]){
+        if(level==LOW && level==btnsLastState[i]){
             pressEvents.push_back(i);
         }
-        btnsLastState[i]= bcm2835_gpio_lev(btnsPin[i]);
+        btnsLastState[i]= level;
     }
 
     Thread::pause(18);
