@@ -35,7 +35,10 @@ private:
     DHT22 *dht22;
     int8_t menuPointer;
 
-    const string menuNames[5]= {"Temp", "Hum", "Watering", "Sun", "Time"};
+    uint8_t refReq;
+    int menuDatas[MENU_ITEMS_NO];
+
+    const string menuNames[MENU_ITEMS_NO]= {"Temp", "Hum", "Watering", "Sun", "Time"};
     const string logo= "  __  __ _          _____ _             _                       ____   ___  \n"
                        " |  \\/  (_)        / ____(_)           (_)                     |___ \\ / _ \\ \n"
                        " | \\  / |_  ___   | |  __ _  __ _ _ __  _  ___ ___ ___           __) | | | |\n"

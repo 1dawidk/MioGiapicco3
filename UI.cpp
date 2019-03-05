@@ -16,11 +16,15 @@ void UI::onStart() {
 
     cout << logo;
     menuPointer=0;
+    refReq= 0;
 }
 
 void UI::onRun() {
-    display->write(menuNames[menuPointer]+": ", 0);
-    display->write(menuNames[menuPointer+1]+": ", 1);
+    if(refReq) {
+        display->write(menuNames[menuPointer] + ": " + to_string(menuDatas[menuPointer]), 0);
+        display->write(menuNames[menuPointer + 1] + ": " + to_string(menuDatas[menuPointer]), 1);
+        refReq=0;
+    }
 
     int buttonPressed= buttonsManager->getEvent();
 
@@ -30,16 +34,20 @@ void UI::onRun() {
         case BUTTON_UP_NO:
             if(menuPointer>0)
                 menuPointer--;
+            refReq= 1;
             break;
         case BUTTON_DOWN_NO:
             if(menuPointer<MENU_ITEMS_NO-2)
                 menuPointer++;
+            refReq= 1;
             break;
         case BUTTON_LEFT_NO:
             cout << "LEFT button pressed" << endl;
+            refReq= 1;
             break;
         case BUTTON_RIGHT_NO:
             cout << "RIGHT button pressed" << endl;
+            refReq= 1;
             break;
     }
 
