@@ -22,6 +22,7 @@ int main() {
 
     SunController *sunController;
     WateringController *wateringController;
+    WindController *windController;
 
     ImagePusher *imagePusher;
 
@@ -32,7 +33,8 @@ int main() {
     pca9685= new PCA9685(i2c, 0x00);
 
     sunController= new SunController(pca9685);
-    wateringController= new WateringController(pca9685);
+    wateringController= new WateringController(RPI_BPLUS_GPIO_J8_03);
+    windController= new WindController(RPI_BPLUS_GPIO_J8_03);
     dht22= new DHT22(RPI_BPLUS_GPIO_J8_15);
 
     imagePusher= new ImagePusher;
@@ -48,7 +50,7 @@ int main() {
     delay(1000);
     display->clrscr();
 
-    ui->init(display, dht22, sunController, wateringController);
+    ui->init(display, dht22, sunController, wateringController, windController);
 
     while (ui->isRunning());
     ui->stop();

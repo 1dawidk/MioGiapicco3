@@ -10,8 +10,9 @@
 class WateringController : public Thread {
 public:
     WateringController(uint8_t pin);
-    int getState();
-    void setState(uint8_t state);
+    int getMinLeft();
+    void incTime();
+    void decTime();
 
 protected:
     void onStart() override;
@@ -21,11 +22,10 @@ protected:
     void onStop() override;
 
 private:
-    uint8_t lastState;
-    uint8_t state;
+    uint8_t minLeft;
     uint8_t pin;
 
-    pthread_mutex_t stateMutex;
+    pthread_mutex_t minMutex;
 };
 
 

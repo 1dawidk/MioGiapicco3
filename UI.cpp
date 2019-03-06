@@ -47,10 +47,10 @@ void UI::refreshData() {
     menuLines[TEMP_ID]+= to_string((int)dht22->getTemperature()) + "*C";
     menuLines[HUM_ID]= to_string((int)dht22->getHumidity())+"%";
 
-    if(wateringController->getState()==0)
+    if(wateringController->getMinLeft()==0)
         menuLines[WATERING_ID]+= "Off";
     else
-        menuLines[WATERING_ID]+= to_string(wateringController->getState())+"min";
+        menuLines[WATERING_ID]+= to_string(wateringController->getMinLeft())+"min";
 
     if(windController->getState()==0){
         menuLines[WIND_ID]+= "Off";
@@ -96,11 +96,11 @@ void UI::testCtrlButtons() {
             break;
         case BUTTON_LEFT_NO:
             if(menuPointer==2)
-                wateringController->setState(0);
+                wateringController->decTime();
             break;
         case BUTTON_RIGHT_NO:
             if(menuPointer==2)
-                wateringController->setState(1);
+                wateringController->incTime();
             break;
     }
 }

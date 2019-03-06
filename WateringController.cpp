@@ -4,32 +4,40 @@ WateringController::WateringController(uint8_t pin) {
     this->pin= pin;
 }
 
-int WateringController::getState() {
-    return state;
+int WateringController::getMinLeft() {
+    return minLeft;
 }
 
-void WateringController::setState(uint8_t state) {
-    pthread_mutex_lock(&stateMutex);
-    this->state= state;
-    pthread_mutex_unlock(&stateMutex);
+void WateringController::incTime() {
+    pthread_mutex_lock(&minMutex);
+    this->minLeft++;
+    pthread_mutex_unlock(&minMutex);
+}
+
+void WateringController::decTime() {
+    pthread_mutex_lock(&minMutex);
+    this->minLeft--;
+    if(minLeft<0)
+        minLeft=0;
+    pthread_mutex_unlock(&minMutex);
 }
 
 void WateringController::onStart() {
     bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_OUTP);
-    stateMutex= PTHREAD_MUTEX_INITIALIZER;
+    minMutex= PTHREAD_MUTEX_INITIALIZER;
 }
 
 void WateringController::onRun() {
 
-    pthread_mutex_lock(&stateMutex);
-    if(lastState!=state){
-        if(state==0){
+    pthread_mutex_lock(&minMutex);
+    /*if(lastState!=minLeft){
+        if(minLeft==0){
             bcm2835_gpio_write(pin, LOW);
         } else {
             bcm2835_gpio_write(pin, HIGH);
         }
-    }
-    pthread_mutex_unlock(&stateMutex);
+    }*/
+    pthread_mutex_unlock(&minMutex);
 
     Thread::pause(1000);
 }
