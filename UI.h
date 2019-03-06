@@ -13,19 +13,26 @@
 #include "Devices/DHT22.h"
 #include "SunController.h"
 #include "WateringController.h"
+#include "WindController.h"
 
 #define BUTTON_UP_NO    1
 #define BUTTON_DOWN_NO  0
 #define BUTTON_LEFT_NO  3
 #define BUTTON_RIGHT_NO 2
 
-#define MENU_ITEMS_NO   5
+#define MENU_ITEMS_NO   6
+#define TEMP_ID         0
+#define HUM_ID          1
+#define WATERING_ID     2
+#define WIND_ID         3
+#define SUN_ID          4
+#define TIME_ID         5
 
 using namespace std;
 
 class UI : public Thread {
 public:
-    void init(HD44780 *disp, DHT22 *dht22, SunController *sunController, WateringController *wateringController);
+    void init(HD44780 *disp, DHT22 *dht22, SunController *sunController, WateringController *wateringController, WindController *windController);
 
 protected:
     void onStart() override;
@@ -42,13 +49,12 @@ private:
     DHT22 *dht22;
     SunController *sunController;
     WateringController *wateringController;
+    WindController *windController;
     int8_t menuPointer;
     int8_t shownMenuPointer;
 
-    string menuDatas[MENU_ITEMS_NO];
+    string menuLines[MENU_ITEMS_NO];
 
-    const string menuNames[MENU_ITEMS_NO]= {"Temp", "Hum", "Watering", "Sun", "Time"};
-    const string menuUnits[MENU_ITEMS_NO]= {"*C", "%", "", "%", ""};
     const string logo= "  __  __ _          _____ _             _                       ____\n"
                        " |  \\/  (_)        / ____(_)           (_)                     |___ \\\n"
                        " | \\  / |_  ___   | |  __ _  __ _ _ __  _  ___ ___ ___           __) |\n"

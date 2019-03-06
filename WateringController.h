@@ -5,10 +5,11 @@
 #include <stdint-gcc.h>
 #include "Devices/PCA9685.h"
 #include "dkulpaclibs/misc/Thread.h"
+#include "bcm2835.h"
 
 class WateringController : public Thread {
 public:
-    WateringController(PCA9685 *pca9685);
+    WateringController(uint8_t pin);
     int getState();
     void setState(uint8_t state);
 
@@ -20,8 +21,11 @@ protected:
     void onStop() override;
 
 private:
+    uint8_t lastState;
     uint8_t state;
-    PCA9685 *pca9685;
+    uint8_t pin;
+
+    pthread_mutex_t stateMutex;
 };
 
 

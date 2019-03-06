@@ -1,10 +1,11 @@
 #include "UI.h"
 
-void UI::init(HD44780 *disp, DHT22* dht22, SunController *sunController, WateringController *wateringController) {
+void UI::init(HD44780 *disp, DHT22* dht22, SunController *sunController, WateringController *wateringController, WindController *windController) {
     this->display= disp;
     this->dht22= dht22;
     this->sunController= sunController;
     this->wateringController= wateringController;
+    this->windController= windController;
     this->start();
 }
 
@@ -35,24 +36,37 @@ void UI::onStop() {
 }
 
 void UI::refreshData() {
-    menuDatas[0]= to_string((int)dht22->getTemperature());
-    menuDatas[1]= to_string((int)dht22->getHumidity());
+    menuLines[TEMP_ID]= "Temp: ";
+    menuLines[HUM_ID]= "Hum: ";
+    menuLines[WATERING_ID]= "Watering: ";
+    menuLines[WIND_ID]= "Wind: ";
+    menuLines[SUN_ID]= "Sun: ";
+    menuLines[TIME_ID]= "Time: ";
+
+
+    menuLines[TEMP_ID]+= to_string((int)dht22->getTemperature()) + "*C";
+    menuLines[HUM_ID]= to_string((int)dht22->getHumidity())+"%";
 
     if(wateringController->getState()==0)
-        menuDatas[2]= "Off";
+        menuLines[WATERING_ID]+= "Off";
     else
-        menuDatas[2]= "On ";
+        menuLines[WATERING_ID]+= to_string(wateringController->getState())+"min";
 
-    menuDatas[3]= to_string(sunController->getState());
+    if(windController->getState()==0){
+        menuLines[WIND_ID]+= "Off";
+    } else {
+        menuLines[WIND_ID]+= to_string(windController->getState())+"min";
+    }
+
+    menuLines[SUN_ID]+= to_string(sunController->getState());
 
     int time= Clock::GetDayMinutes();
-    menuDatas[4]="";
     if(time/60<10)
-        menuDatas[4]="0";
-    menuDatas[4]+= to_string(time/60)+":";
+        menuLines[TIME_ID]+="0";
+    menuLines[TIME_ID]+= to_string(time/60)+":";
     if(time%60<10)
-        menuDatas[4]+="0";
-    menuDatas[4]+=to_string(time%60);
+        menuLines[TIME_ID]+="0";
+    menuLines[TIME_ID]+=to_string(time%60);
 }
 
 void UI::refreshScreen() {
@@ -60,8 +74,8 @@ void UI::refreshScreen() {
         display->clrscr();
         shownMenuPointer= menuPointer;
     }
-    display->write(menuNames[menuPointer] + ": " + menuDatas[menuPointer]+menuUnits[menuPointer], 0);
-    display->write(menuNames[menuPointer + 1] + ": " + menuDatas[menuPointer+1]+menuUnits[menuPointer+1], 1);
+    display->write(menuLines[menuPointer], 0);
+    display->write(menuLines[menuPointer+1], 1);
 
     display->writexy(15, 0, "<");
 }
