@@ -45,7 +45,7 @@ void UI::refreshData() {
 
 
     menuLines[TEMP_ID]+= to_string((int)dht22->getTemperature()) + "*C";
-    menuLines[HUM_ID]= to_string((int)dht22->getHumidity())+"%";
+    menuLines[HUM_ID]+= to_string((int)dht22->getHumidity())+"%";
 
     if(wateringController->getMinLeft()==0)
         menuLines[WATERING_ID]+= "Off";
@@ -95,12 +95,16 @@ void UI::testCtrlButtons() {
                 menuPointer++;
             break;
         case BUTTON_LEFT_NO:
-            if(menuPointer==2)
+            if(menuPointer==WATERING_ID)
                 wateringController->decTime();
+            if(menuPointer==WIND_ID)
+                windController->decTime();
             break;
         case BUTTON_RIGHT_NO:
-            if(menuPointer==2)
+            if(menuPointer==WATERING_ID)
                 wateringController->incTime();
+            if(menuPointer==WIND_ID)
+                windController->incTime();
             break;
     }
 }

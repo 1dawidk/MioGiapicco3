@@ -33,8 +33,8 @@ int main() {
     pca9685= new PCA9685(i2c, 0x00);
 
     sunController= new SunController(pca9685);
-    wateringController= new WateringController(RPI_BPLUS_GPIO_J8_03);
-    windController= new WindController(RPI_BPLUS_GPIO_J8_03);
+    wateringController= new WateringController(RPI_BPLUS_GPIO_J8_35);
+    windController= new WindController(RPI_BPLUS_GPIO_J8_37);
     dht22= new DHT22(RPI_BPLUS_GPIO_J8_15);
 
     imagePusher= new ImagePusher;
