@@ -36,7 +36,7 @@ void ImagePusher::onRun() {
         struct curl_slist *headerlist = NULL;
         headerlist = curl_slist_append(headerlist, "Content-Type: multipart/form-data");
 
-        cout << "Prepare post form"
+        cout << "Prepare post form" << endl;
         curl_formadd(&post, &lastpost,
                      CURLFORM_COPYNAME, "file",
                      CURLFORM_FILE, "./imgs/lastshot.jpg",
