@@ -8,6 +8,8 @@
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
 
+#define IMAGEPUSHER_TRIGGER_INITVALUE   10
+
 using namespace std;
 
 class ImagePusher : public Thread {
@@ -21,6 +23,7 @@ protected:
 private:
     string url;
     Camera *camera;
+    uint8_t triggerCnt;
 
 };
 

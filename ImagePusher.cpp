@@ -3,48 +3,55 @@
 
 ImagePusher::ImagePusher(const string &url) {
     this->url= url;
-
 }
 
 void ImagePusher::onStart() {
     curl_global_init(CURL_GLOBAL_SSL);
 
     camera= new Camera;
-    camera->init(512, 512);
+    camera->init(3280,  2464);
+    triggerCnt=1;
 }
 
 void ImagePusher::onRun() {
-    cv::Mat imgBuff;
 
-    cout << "Take a photo" << endl;
+    if(triggerCnt==0) {
+        cv::Mat imgBuff;
 
-    camera->getImage(&imgBuff);
-    cv::imwrite("./imgs/lastshot.jpg", imgBuff);
+        cout << "Take a photo" << endl;
 
-    cout << "Done" << endl;
+        camera->getImage(&imgBuff);
+        cv::imwrite("./imgs/lastshot.jpg", imgBuff);
 
-
-    CURL *curlHandle= curl_easy_init();
-    curl_httppost *post;
-    curl_httppost *lastpost;
+        cout << "Done" << endl;
 
 
-    struct curl_slist *headerlist= NULL;
-    headerlist= curl_slist_append(headerlist, "Content-Type: multipart/form-data");
+        CURL *curlHandle = curl_easy_init();
+        curl_httppost *post;
+        curl_httppost *lastpost;
 
-    curl_formadd(&post, &lastpost,
-                    CURLFORM_COPYNAME, "file",
-                    CURLFORM_FILE, "./imgs/lastshot.jpg",
-                    CURLFORM_END);
 
-    curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curlHandle, CURLOPT_HTTPHEADER, headerlist);
-    curl_easy_setopt(curlHandle, CURLOPT_HTTPPOST, post);
-    curl_easy_setopt(curlHandle, CURLOPT_VERBOSE, 1L);
+        struct curl_slist *headerlist = NULL;
+        headerlist = curl_slist_append(headerlist, "Content-Type: multipart/form-data");
 
-    curl_easy_perform(curlHandle);
+        curl_formadd(&post, &lastpost,
+                     CURLFORM_COPYNAME, "file",
+                     CURLFORM_FILE, "./imgs/lastshot.jpg",
+                     CURLFORM_END);
 
-    Thread::pause(10000);
+        curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curlHandle, CURLOPT_HTTPHEADER, headerlist);
+        curl_easy_setopt(curlHandle, CURLOPT_HTTPPOST, post);
+        curl_easy_setopt(curlHandle, CURLOPT_VERBOSE, 1L);
+
+        curl_easy_perform(curlHandle);
+
+        triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;
+    } else {
+        triggerCnt--;
+    }
+
+    Thread::pause(60000);
 }
 
 void ImagePusher::onStop() {
