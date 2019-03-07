@@ -9,6 +9,7 @@ find_package(Threads REQUIRED)
 find_package(CURL REQUIRED)
 find_package(dkulpaclibs REQUIRED)
 find_package(PkgConfig)
+set(raspicam_DIR "/usr/local/lib/cmake")
 find_package(raspicam REQUIRED)
 find_package(OpenCV REQUIRED)
 
