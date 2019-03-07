@@ -9,7 +9,7 @@ void ImagePusher::onStart() {
     curl_global_init(CURL_GLOBAL_SSL);
 
     camera= new Camera;
-    camera->init(2592, 1944);
+    camera->init(2048, 1536);
     triggerCnt=0;
 }
 
@@ -26,7 +26,7 @@ void ImagePusher::onRun() {
         cout << "Done" << endl;
 
 
-        /*CURL *curlHandle = curl_easy_init();
+        CURL *curlHandle = curl_easy_init();
         curl_httppost *post;
         curl_httppost *lastpost;
 
@@ -46,7 +46,7 @@ void ImagePusher::onRun() {
 
         curl_easy_perform(curlHandle);
 
-        triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;*/
+        triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;
     } else {
         triggerCnt--;
     }
