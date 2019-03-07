@@ -1,7 +1,7 @@
 #ifndef MIOGIAPICCO_CAMERA_H
 #define MIOGIAPICCO_CAMERA_H
 
-#include <raspicam/raspicam_cv.h>
+#include <raspicam/raspicam_still_cv.h>
 
 using namespace raspicam;
 
@@ -16,7 +16,7 @@ private:
     unsigned int resY;
     unsigned int resX;
 
-    RaspiCam_Cv *cam_h;
+    RaspiCam_Still_Cv *cam_h;
 };
 
 

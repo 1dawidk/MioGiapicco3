@@ -2,7 +2,7 @@
 #include "Camera.h"
 
 Camera::Camera() {
-    cam_h= new RaspiCam_Cv();
+    cam_h= new RaspiCam_Still_Cv();
 }
 
 Camera::~Camera() {
@@ -14,12 +14,10 @@ void Camera::init(unsigned int resX, unsigned int resY) {
     this->resX= resX;
     this->resY= resY;
 
-    //cam_h->set(CV_CAP_PROP_FORMAT, CV_8UC1);
-
-    cam_h->open();
-
     cam_h->set(CV_CAP_PROP_FRAME_WIDTH, resX);
     cam_h->set(CV_CAP_PROP_FRAME_HEIGHT, resY);
+
+    cam_h->open();
     sleep(3);
 }
 
