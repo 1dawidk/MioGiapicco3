@@ -1,42 +1,47 @@
 #include <sys/stat.h>
 #include "ImagePusher.h"
 
-void ImagePusher::init(const string &url) {
+ImagePusher::ImagePusher(const string &url) {
     this->url= url;
 
-    curl_global_init(CURL_GLOBAL_SSL);
-
-    this->start();
 }
 
 void ImagePusher::onStart() {
+    curl_global_init(CURL_GLOBAL_SSL);
+
     camera= new Camera;
     camera->init(512, 512);
-
-    curlHandle= curl_easy_init();
-
-    struct curl_slist *headerlist=NULL;
-    headerlist = curl_slist_append( headerlist, "Content-Type: image/jpeg");
-
-    curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curlHandle, CURLOPT_HTTPHEADER, headerlist);
-    curl_easy_setopt(curlHandle, CURLOPT_POST, 1L);
 }
 
 void ImagePusher::onRun() {
     cv::Mat imgBuff;
 
+    cout << "Take a photo" << endl;
+
     camera->getImage(&imgBuff);
     cv::imwrite("./imgs/lastshot.jpg", imgBuff);
 
-    FILE *fd= fopen("./imgs/lastshot.jpg", "rb");
-    struct stat file_info;
-    fstat(fileno(fd), &file_info);
+    cout << "Done" << endl;
 
-    curl_easy_setopt(curlHandle, CURLOPT_READDATA, fd);
-    curl_easy_setopt(curlHandle, CURLOPT_POSTFIELDSIZE, (curl_off_t)file_info.st_size);
 
-    curl_easy_perform(curlHandle);
+    CURL *curlHandle= curl_easy_init();
+    curl_httppost *post;
+    curl_httppost *lastpost;
+
+
+    /*struct curl_slist *headerlist= NULL;
+    headerlist= curl_slist_append(headerlist, "Content-Type: multipart/form-data");
+
+    curl_formadd(&post, &lastpost,
+                    CURLFORM_COPYNAME, "file",
+                    CURLFORM_FILE, "./imgs/lastshot.jpg",
+                    CURLFORM_END);
+
+    curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curlHandle, CURLOPT_HTTPHEADER, headerlist);
+    curl_easy_setopt(curlHandle, CURLOPT_HTTPPOST, post);
+
+    curl_easy_perform(curlHandle);*/
 
     Thread::pause(2000);
 }

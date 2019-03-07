@@ -37,14 +37,15 @@ int main() {
     windController= new WindController(RPI_BPLUS_GPIO_J8_37);
     dht22= new DHT22(RPI_BPLUS_GPIO_J8_15);
 
-    imagePusher= new ImagePusher;
+    imagePusher= new ImagePusher("https://dawidkulpa.pl/scripts/mioGiapicco3_imgupload.php");
 
     //Init / Start
     display->init();
     display->write("Init...", 0);
     dht22->start();
-    //imagePusher->init("https://dawidkulpa.pl/projects/miogiapicco30/imgrec.php");
+    imagePusher->start();
     //sunController->start();
+    //windController->start();
 
     display->write("Init [Done]", 0);
     delay(1000);

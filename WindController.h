@@ -6,6 +6,9 @@
 #include "dkulpaclibs/misc/Thread.h"
 #include "bcm2835.h"
 
+#define WIND_STATE_OFF  0
+#define WIND_STATE_ON   1
+
 class WindController : public Thread{
 public:
     WindController(uint8_t pin);
@@ -21,6 +24,8 @@ protected:
 private:
     uint8_t pin;
     uint8_t minLeft;
+    uint8_t state;
+    int onTime;
     pthread_mutex_t minMutex;
 };
 

@@ -28,7 +28,16 @@ void WindController::onStart() {
 }
 
 void WindController::onRun() {
-    Thread::pause(1000);
+
+    if(state==WIND_STATE_OFF && minLeft>0){
+        state= WIND_STATE_ON;
+        onTime= Clock::GetDayMinutes();
+        //TODO: Set mos open
+    } else if(state==WIND_STATE_ON){
+
+    }
+
+    Thread::pause(5000);
 }
 
 void WindController::onStop() {

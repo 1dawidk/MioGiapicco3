@@ -4,7 +4,7 @@
 #include "dkulpaclibs/misc/Thread.h"
 #include "dkulpaclibs/hw/Camera.h"
 #include "string"
-#include "curl/curl.h"
+#include <curl/curl.h>
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
 
@@ -12,7 +12,7 @@ using namespace std;
 
 class ImagePusher : public Thread {
 public:
-    void init(const string &url);
+    ImagePusher(const string &url);
 protected:
     void onStart() override;
     void onRun() override;
@@ -21,7 +21,7 @@ protected:
 private:
     string url;
     Camera *camera;
-    CURL *curlHandle;
+
 };
 
 

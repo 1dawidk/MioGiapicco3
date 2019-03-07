@@ -23,7 +23,6 @@ void UI::onStart() {
 }
 
 void UI::onRun() {
-
     refreshData();
     refreshScreen();
     testCtrlButtons();
@@ -73,7 +72,39 @@ void UI::refreshScreen() {
     if(shownMenuPointer!=menuPointer) {
         display->clrscr();
         shownMenuPointer= menuPointer;
+    }    menuLines[TEMP_ID]= "Temp: ";
+    menuLines[HUM_ID]= "Hum: ";
+    menuLines[WATERING_ID]= "Watering: ";
+    menuLines[WIND_ID]= "Wind: ";
+    menuLines[SUN_ID]= "Sun: ";
+    menuLines[TIME_ID]= "Time: ";
+
+
+    menuLines[TEMP_ID]+= to_string((int)dht22->getTemperature()) + "*C";
+    menuLines[HUM_ID]+= to_string((int)dht22->getHumidity())+"%";
+
+
+    if(wateringController->getMinLeft()==0)
+        menuLines[WATERING_ID]+= "Off";
+    else
+        menuLines[WATERING_ID]+= to_string(wateringController->getMinLeft())+"min";
+
+    if(windController->getState()==0){
+        menuLines[WIND_ID]+= "Off";
+    } else {
+        menuLines[WIND_ID]+= to_string(windController->getState())+"min";
     }
+
+    menuLines[SUN_ID]+= to_string(sunController->getState());
+
+    int time= Clock::GetDayMinutes();
+    if(time/60<10)
+        menuLines[TIME_ID]+="0";
+    menuLines[TIME_ID]+= to_string(time/60)+":";
+    if(time%60<10)
+        menuLines[TIME_ID]+="0";
+    menuLines[TIME_ID]+=to_string(time%60);
+
     display->write(menuLines[menuPointer], 0);
     display->write(menuLines[menuPointer+1], 1);
 
