@@ -9,7 +9,7 @@ void ImagePusher::onStart() {
     curl_global_init(CURL_GLOBAL_SSL);
 
     camera= new Camera;
-    camera->init(3280, 2464);
+    camera->init(2592, 1944);
     triggerCnt=0;
 }
 
