@@ -12,7 +12,7 @@ using namespace std;
 
 class ImagePusher : public Thread {
 public:
-    ImagePusher(const string &url);
+    explicit ImagePusher(const string &url);
 protected:
     void onStart() override;
     void onRun() override;
