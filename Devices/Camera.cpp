@@ -14,8 +14,8 @@ void Camera::init(unsigned int resX, unsigned int resY) {
     this->resX= resX;
     this->resY= resY;
 
-    //cam_h->set(CV_CAP_PROP_FRAME_WIDTH, resX);
-    //cam_h->set(CV_CAP_PROP_FRAME_HEIGHT, resY);
+    cam_h->set(CV_CAP_PROP_FRAME_WIDTH, resX);
+    cam_h->set(CV_CAP_PROP_FRAME_HEIGHT, resY);
 
     cam_h->open();
     sleep(3);
