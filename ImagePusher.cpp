@@ -29,7 +29,7 @@ void ImagePusher::onRun() {
     curl_httppost *lastpost;
 
 
-    /*struct curl_slist *headerlist= NULL;
+    struct curl_slist *headerlist= NULL;
     headerlist= curl_slist_append(headerlist, "Content-Type: multipart/form-data");
 
     curl_formadd(&post, &lastpost,
@@ -40,10 +40,11 @@ void ImagePusher::onRun() {
     curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curlHandle, CURLOPT_HTTPHEADER, headerlist);
     curl_easy_setopt(curlHandle, CURLOPT_HTTPPOST, post);
+    curl_easy_setopt(curlHandle, CURLOPT_VERBOSE, 1L);
 
-    curl_easy_perform(curlHandle);*/
+    curl_easy_perform(curlHandle);
 
-    Thread::pause(2000);
+    Thread::pause(10000);
 }
 
 void ImagePusher::onStop() {
