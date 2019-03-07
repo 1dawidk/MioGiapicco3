@@ -22,6 +22,7 @@ void ImagePusher::onRun() {
 
         camera->getImage(&imgBuff);
         cv::imwrite("./imgs/lastshot.jpg", imgBuff);
+        Thread::pause(500);
 
         cout << "Done" << endl;
 
