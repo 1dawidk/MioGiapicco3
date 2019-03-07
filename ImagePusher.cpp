@@ -26,7 +26,7 @@ void ImagePusher::onRun() {
         cout << "Done" << endl;
 
 
-        CURL *curlHandle = curl_easy_init();
+        /*CURL *curlHandle = curl_easy_init();
         curl_httppost *post;
         curl_httppost *lastpost;
 
@@ -46,7 +46,7 @@ void ImagePusher::onRun() {
 
         curl_easy_perform(curlHandle);
 
-        triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;
+        triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;*/
     } else {
         triggerCnt--;
     }
