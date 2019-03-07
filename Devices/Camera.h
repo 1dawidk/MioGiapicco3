@@ -1,7 +1,7 @@
 #ifndef MIOGIAPICCO_CAMERA_H
 #define MIOGIAPICCO_CAMERA_H
 
-#include "raspicam/raspicam_cv.h"
+#include <raspicam/raspicam_cv.h>
 
 using namespace raspicam;
 
