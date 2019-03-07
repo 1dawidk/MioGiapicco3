@@ -10,7 +10,7 @@ void ImagePusher::onStart() {
 
     camera= new Camera;
     camera->init(3280,  2464);
-    triggerCnt=1;
+    triggerCnt=0;
 }
 
 void ImagePusher::onRun() {
