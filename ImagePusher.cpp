@@ -28,8 +28,8 @@ void ImagePusher::onRun() {
 
         cout << "Create curl handle" << endl;
         CURL *curlHandle = curl_easy_init();
-        curl_httppost *post;
-        curl_httppost *lastpost;
+        curl_httppost *post=NULL;
+        curl_httppost *lastpost=NULL;
 
 
         cout << "Create http header" << endl;
