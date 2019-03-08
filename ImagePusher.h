@@ -8,7 +8,7 @@
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
 
-#define IMAGEPUSHER_TRIGGER_INITVALUE   10
+#define IMAGEPUSHER_TRIGGER_INITVALUE   60
 
 using namespace std;
 

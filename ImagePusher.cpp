@@ -44,7 +44,7 @@ void ImagePusher::onRun() {
         curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curlHandle, CURLOPT_HTTPHEADER, headerlist);
         curl_easy_setopt(curlHandle, CURLOPT_HTTPPOST, post);
-        curl_easy_setopt(curlHandle, CURLOPT_VERBOSE, 1L);
+        curl_easy_setopt(curlHandle, CURLOPT_VERBOSE, 0);
 
         // Perform curl
         curl_easy_perform(curlHandle);
