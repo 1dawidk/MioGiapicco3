@@ -7,6 +7,7 @@
 #include "Devices/DHT22.h"
 #include "Devices/HD44780.h"
 #include "Devices/PCA9685.h"
+#include "DataGatherer.h"
 
 int main() {
     UI *ui= new UI;
@@ -25,6 +26,7 @@ int main() {
     WindController *windController;
 
     ImagePusher *imagePusher;
+    DataGatherer *dataGatherer;
 
 
     //Create objects
@@ -38,12 +40,15 @@ int main() {
     dht22= new DHT22(RPI_BPLUS_GPIO_J8_15);
 
     imagePusher= new ImagePusher("https://dawidkulpa.pl/scripts/mioGiapicco3_imgupload.php");
+    dataGatherer= new DataGatherer("https://dawidkulpa.pl/scripts/mioGiapicco3_dataupload.php",
+            dht22, sunController, wateringController, windController);
 
     //Init / Start
     display->init();
     display->write("Init...", 0);
     dht22->start();
     imagePusher->start();
+    dataGatherer->start();
     //sunController->start();
     //windController->start();
 

@@ -48,6 +48,7 @@ void ImagePusher::onRun() {
 
         // Perform curl
         curl_easy_perform(curlHandle);
+        curl_easy_cleanup(curlHandle);
 
         triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;
     } else {
