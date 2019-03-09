@@ -57,7 +57,7 @@ void DataGatherer::onRun() {
 
             cout << "Data uploaded" << endl;
 
-            lastSentHour = h;
+            lastSentHour = 0;
         }
     }
 
