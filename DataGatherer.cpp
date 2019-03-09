@@ -48,7 +48,7 @@ void DataGatherer::onRun() {
             // Set curl opts
             curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
             curl_easy_setopt(curlHandle, CURLOPT_POST, 1);
-            curl_easy_setopt(curlHandle, CURLOPT_POSTFIELDS, "");
+            curl_easy_setopt(curlHandle, CURLOPT_POSTFIELDS, curlPostFields.c_str());
             curl_easy_setopt(curlHandle, CURLOPT_VERBOSE, 0);
 
             // Perform curl
