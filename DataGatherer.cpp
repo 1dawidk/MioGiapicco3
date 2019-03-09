@@ -23,7 +23,7 @@ void DataGatherer::onRun() {
 
     if(h!=lastSentHour){
         int hum= (int)dht22->getHumidity();
-        int temp= (int)dht22->getHumidity();
+        int temp= (int)dht22->getTemperature();
         int sun= sunController->getState();
         int water= wateringController->getMinLeft();
         int wind= windController->getState();
@@ -57,7 +57,7 @@ void DataGatherer::onRun() {
 
             cout << "Data uploaded" << endl;
 
-            lastSentHour = 0;
+            lastSentHour = h;
         }
     }
 
