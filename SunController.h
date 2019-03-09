@@ -7,7 +7,6 @@
 
 class SunController : public Thread {
 public:
-    SunController(PCA9685 *pca9685);
     int getState();
 
 protected:
@@ -16,9 +15,16 @@ protected:
     void onStop() override;
 
 private:
-    PCA9685 *pca9685;
     uint8_t state;
 
+    const uint8_t sunAtHalfHour[48]={
+            20,  20,  30,  40,  50,  60,  70,  80,    //0:00 - 3:30
+            90,  90,  90,  90,  90,  90,  90,  90,    //4:00 - 7:30
+            100, 100, 100, 100, 100, 100, 100, 100,   //8:00 - 11:30
+            100, 100, 100, 100, 100, 100, 100, 100,   //12:00 - 15:30
+            100, 100, 100, 100, 100, 100, 100, 100,   //16:00 - 19:30
+            100, 100, 90,  80,  70,  50,  30,  20     //20:00 - 23:30
+    };
 };
 
 

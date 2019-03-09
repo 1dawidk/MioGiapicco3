@@ -1,15 +1,23 @@
 #include "SunController.h"
 
-SunController::SunController(PCA9685 *pca9685) {
-    this->pca9685= pca9685;
-}
 
 void SunController::onStart() {
+    int dayM= Clock::GetDayMinutes();
+    int h= dayM/60;
 
+    state= sunAtHalfHour[h];
 }
 
 void SunController::onRun() {
+    int dayM= Clock::GetDayMinutes();
+    int h= dayM/60;
 
+    if(state<sunAtHalfHour[h])
+        state++;
+    else if(state>sunAtHalfHour[h])
+        state--;
+
+    Thread::pause(120000);
 }
 
 void SunController::onStop() {
@@ -18,5 +26,5 @@ void SunController::onStop() {
 
 
 int SunController::getState() {
-    return 78;
+    return state;
 }
