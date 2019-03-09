@@ -19,7 +19,6 @@ void DataGatherer::onStart() {
 
 void DataGatherer::onRun() {
     int t= Clock::GetDayMinutes();
-    int m= t%60;
     int h= t/60;
 
     if(h!=lastSentHour){
@@ -54,6 +53,8 @@ void DataGatherer::onRun() {
         // Perform curl
         curl_easy_perform(curlHandle);
         curl_easy_cleanup(curlHandle);
+
+        lastSentHour= h;
     }
 
     Thread::pause(60000);
