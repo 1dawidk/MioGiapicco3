@@ -23,8 +23,8 @@ protected:
 private:
     string url;
     Camera *camera;
-    uint8_t triggerCnt;
 
+    int lastSentHour;
 };
 
 

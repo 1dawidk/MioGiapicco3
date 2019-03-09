@@ -10,12 +10,14 @@ void ImagePusher::onStart() {
 
     camera= new Camera;
     camera->init(2048, 1536);
-    triggerCnt=0;
+    lastSentHour=0;
 }
 
 void ImagePusher::onRun() {
+    int m= Clock::GetDayMinutes();
+    int h= m/60;
 
-    if(triggerCnt==0) {
+    if(lastSentHour!=h && (h%6==0)) {
         cv::Mat imgBuff;
 
         // Take a photo
@@ -52,12 +54,10 @@ void ImagePusher::onRun() {
 
         cout << "Image uploaded" << endl;
 
-        triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;
-    } else {
-        triggerCnt--;
+        lastSentHour=h;
     }
 
-    Thread::pause(60000);
+    Thread::pause(120000);
 }
 
 void ImagePusher::onStop() {
