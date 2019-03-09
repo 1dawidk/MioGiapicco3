@@ -50,6 +50,8 @@ void ImagePusher::onRun() {
         curl_easy_perform(curlHandle);
         curl_easy_cleanup(curlHandle);
 
+        cout << "Image uploaded" << endl;
+
         triggerCnt= IMAGEPUSHER_TRIGGER_INITVALUE;
     } else {
         triggerCnt--;

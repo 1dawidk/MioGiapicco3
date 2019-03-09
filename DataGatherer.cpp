@@ -55,6 +55,8 @@ void DataGatherer::onRun() {
             curl_easy_perform(curlHandle);
             curl_easy_cleanup(curlHandle);
 
+            cout << "Data uploaded" << endl;
+
             lastSentHour = h;
         }
     }
