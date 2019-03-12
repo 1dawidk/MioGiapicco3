@@ -10,7 +10,7 @@ void ImagePusher::onStart() {
 
     camera= new Camera;
     camera->init(2048, 1536);
-    lastSentHour=0;
+    lastSentHour=120;
 }
 
 void ImagePusher::onRun() {
