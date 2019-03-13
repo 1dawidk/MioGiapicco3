@@ -51,7 +51,7 @@ void DHT22::onRun() {
             break;
 
         /* ignore first 3 transitions */
-        if ( (i >= 4) && (i % 2 == 0) )
+        if ( (i >= 3) && (i % 2 == 1) )
         {
             /* shove each bit into the storage bytes */
             dht11_dat[j / 8] <<= 1;
