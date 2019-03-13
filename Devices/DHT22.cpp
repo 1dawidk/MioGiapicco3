@@ -75,12 +75,13 @@ void DHT22::onRun() {
         hum= (float)humTmp/10;
         temp= (float)tempTmp/10;
         pthread_mutex_unlock(&readMutex);
-        cout << "Data read OK: Temp: " << temp << ", Hum: "<< hum << endl;
+        Thread::pause(5000);
     }else  {
         cout << "Data read failed: " << dht11_dat[0] << ", " << dht11_dat[1] << ", " << dht11_dat[2] << ", " << dht11_dat[3] << endl;
+        Thread::pause(1000);
     }
 
-    Thread::pause(5000);
+
 
 }
 
