@@ -17,7 +17,6 @@ void DHT22::onRun() {
     uint8_t laststate	= HIGH;
     uint8_t counter		= 0;
     uint8_t j		= 0, i;
-    float	f; /* fahrenheit */
 
     dht11_dat[0] = dht11_dat[1] = dht11_dat[2] = dht11_dat[3] = dht11_dat[4] = 0;
 
@@ -56,7 +55,7 @@ void DHT22::onRun() {
         {
             /* shove each bit into the storage bytes */
             dht11_dat[j / 8] <<= 1;
-            if ( counter > 30 )
+            if ( counter > 20 )
                 dht11_dat[j / 8] |= 1;
             j++;
         }
