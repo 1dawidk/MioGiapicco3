@@ -1,11 +1,12 @@
 #include "MCP3208.h"
 
-MCP3208::MCP3208(SPI *spi) {
+MCP3208::MCP3208(SPI *spi, uint8_t cs_pin) {
     this->spi_h= spi;
+    this->cs_pin= cs_pin;
     readMutex= PTHREAD_MUTEX_INITIALIZER;
 }
 
-float MCP3208::ReadCh(uint8_t ch) {
+float MCP3208::readCh(uint8_t ch) {
     float vol;
     uint8_t buff[3];
 
@@ -13,7 +14,7 @@ float MCP3208::ReadCh(uint8_t ch) {
     buff[1]=0;
     buff[2]=0;
 
-    //spi_h->RawTransfer(spiChip, buff, 3);
+    spi_h->RawTransfer(cs_pin, buff, 3);
 
     vol=(uint16_t)( ((uint16_t)(buff[1])<<6) | (buff[2]>>2));
     vol=vol*(vRef/4095);

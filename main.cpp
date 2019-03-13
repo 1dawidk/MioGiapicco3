@@ -17,7 +17,7 @@ int main() {
     //bcm2835_set_debug(1);
 
     I2C *i2c;
-    SPI *spi;
+    //SPI *spi;
 
     DHT22 *dht22;
     HD44780 *display;
@@ -32,7 +32,7 @@ int main() {
 
     //Create objects
     i2c= new I2C((uint16_t)100000);
-    spi= new SPI(1024, SPI_MODE_CPOL1_CPHA1, SPI_LOW, SPI_LOW);
+    //spi= new SPI(1024, SPI_MODE_CPOL1_CPHA1, SPI_LOW, SPI_LOW);
     display= new HD44780(2, 16, HD44780_BUS_I2C, i2c, 0x27);
 
     sunController= new SunController;

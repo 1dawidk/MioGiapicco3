@@ -8,10 +8,11 @@
 
 class MCP3208 {
 public:
-    MCP3208(SPI *spi);
-    float ReadCh(uint8_t ch);
+    MCP3208(SPI *spi, uint8_t cs_pin);
+    float readCh(uint8_t ch);
 private:
     SPI *spi_h;
+    uint8_t cs_pin;
     float vRef;
 
     pthread_mutex_t readMutex;
