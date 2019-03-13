@@ -78,6 +78,7 @@ void DHT22::onRun() {
         pthread_mutex_unlock(&readMutex);
 
     }else  {
+        cout << "Data read failed: " << dht11_dat[0] << ", " << dht11_dat[1] << ", " << dht11_dat[2] << ", " << dht11_dat[3];
     }
 
     Thread::pause(5000);
