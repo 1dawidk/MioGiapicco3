@@ -55,7 +55,7 @@ void DHT22::onRun() {
         {
             /* shove each bit into the storage bytes */
             dht11_dat[j / 8] <<= 1;
-            if ( counter > 40 )
+            if ( counter > 28 )
                 dht11_dat[j / 8] |= 1;
             j++;
         }
