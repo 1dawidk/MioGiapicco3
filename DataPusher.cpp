@@ -1,6 +1,6 @@
-#include "DataGatherer.h"
+#include "DataPusher.h"
 
-DataGatherer::DataGatherer(const string &url,
+DataPusher::DataPusher(const string &url,
         DHT22 *dht22,
         SunController *sunController,
         WateringController *wateringController,
@@ -13,11 +13,11 @@ DataGatherer::DataGatherer(const string &url,
     this->windController= windController;
 }
 
-void DataGatherer::onStart() {
+void DataPusher::onStart() {
     lastSentHour=0;
 }
 
-void DataGatherer::onRun() {
+void DataPusher::onRun() {
     int t= Clock::GetDayMinutes();
     int h= t/60;
 
@@ -55,7 +55,7 @@ void DataGatherer::onRun() {
             curl_easy_perform(curlHandle);
             curl_easy_cleanup(curlHandle);
 
-            cout << "Data uploaded" << endl;
+            cout << "Data uploaded: " << curlPostFields << endl;
 
             lastSentHour = h;
         }
@@ -64,6 +64,6 @@ void DataGatherer::onRun() {
     Thread::pause(60000);
 }
 
-void DataGatherer::onStop() {
+void DataPusher::onStop() {
 
 }

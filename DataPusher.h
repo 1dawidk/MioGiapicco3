@@ -1,5 +1,5 @@
-#ifndef MIOGIAPICCO_DATAGATHERER_H
-#define MIOGIAPICCO_DATAGATHERER_H
+#ifndef MIOGIAPICCO_DATAPUSHER_H
+#define MIOGIAPICCO_DATAPUSHER_H
 
 #include "dkulpaclibs/misc/Thread.h"
 #include "Devices/DHT22.h"
@@ -9,9 +9,9 @@
 #include <curl/curl.h>
 
 
-class DataGatherer :  public Thread{
+class DataPusher :  public Thread{
 public:
-    DataGatherer(const string &url,
+    DataPusher(const string &url,
             DHT22 *dht22,
             SunController *sunController,
             WateringController *wateringController,
@@ -35,4 +35,4 @@ private:
 };
 
 
-#endif //MIOGIAPICCO_DATAGATHERER_H
+#endif //MIOGIAPICCO_DATAPUSHER_H
