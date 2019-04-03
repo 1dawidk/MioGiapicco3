@@ -1,6 +1,6 @@
 #include "SEN0193.h"
 
-SEN0193::SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor) {
+SEN0193::SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor, float min, float max) {
     this->mcp3208= mcp3208;
     this->inChCnt= inChCnt;
     this->inChs= inChs;
@@ -10,6 +10,9 @@ SEN0193::SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgF
     this->avgCnt=0;
     chSums= new uint16_t[inChCnt];
     chAvgs= new uint8_t[inChCnt];
+
+    a= 100/(max-min);
+    b = -a*min;
 }
 
 void SEN0193::onStart() {
@@ -21,14 +24,13 @@ void SEN0193::onRun() {
     float voltage;
 
     for(int i=0; i<inChCnt; i++){
-        //TODO: Convert voltage to percents
         voltage= mcp3208->readCh(inChs[i]);
 
-        chValues[i]= mcp3208->readCh(inChs[i]);
+        chValues[i]= (uint8_t)(a*voltage + b);
 
         chSums[i]+= chValues[i];
         if(avgCnt==avgFor){
-            chAvgs[i]= chSums[i]/avgFor;
+            chAvgs[i]= (uint8_t)(chSums[i]/avgFor);
             chSums[i]=0;
         }
     }

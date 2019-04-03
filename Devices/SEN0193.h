@@ -7,7 +7,7 @@
 
 class SEN0193 : public Thread {
 public:
-    SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor);
+    SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor, float min, float max);
 
     uint8_t getLastValue(uint8_t ch);
     uint8_t getAvgValue(uint8_t ch);
@@ -24,6 +24,8 @@ private:
 
     float maxV;
     float minV;
+    float a;
+    float b;
 
     uint8_t inChCnt;
     uint8_t *inChs;
