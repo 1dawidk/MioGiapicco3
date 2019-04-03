@@ -2,12 +2,14 @@
 
 DataPusher::DataPusher(const string &url,
         DHT22 *dht22,
+        SEN0193 *soilHumSensor,
         SunController *sunController,
         WateringController *wateringController,
         WindController *windController) {
     this->url= url;
 
     this->dht22= dht22;
+    this->soilHumSensor= soilHumSensor;
     this->sunController= sunController;
     this->wateringController= wateringController;
     this->windController= windController;
@@ -27,11 +29,13 @@ void DataPusher::onRun() {
         int sun= sunController->getState();
         int water= wateringController->getMinLeft();
         int wind= windController->getState();
+        int soil= soilHumSensor->getAllChAvgLast();
 
         if(hum!=0 && temp!=0) {
             string curlPostFields = "hum=" + to_string(hum);
             curlPostFields += "&temp=" + to_string(temp);
             curlPostFields += "&sun=" + to_string(sun);
+            curlPostFields += "&soil=" + to_string(soil);
             curlPostFields += "&water=";
             if (water)
                 curlPostFields += "1";

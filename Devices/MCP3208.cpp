@@ -19,7 +19,15 @@ float MCP3208::readCh(uint8_t ch) {
     vol=(uint16_t)( ((uint16_t)(buff[1])<<6) | (buff[2]>>2));
     vol=vol*(vRef/4095);
 
+    std::cout << "Spi out: " << buff[0] << " " << buff[1] << " " << buff[2] << ", V: " << vol << std::endl;
+
     return vol;
 }
+
+// 0x18 | ch
+// 00011000 | ch (111-000)
+
+//vol = buff[1]<<6 | buff[2]>>2
+//vol = 0xxxxxxx<<6 | 00000000>>2
 
 

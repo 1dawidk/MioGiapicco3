@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include "../Peripherals/SPI.h"
 #include <cstdint>
+#include <iostream>
 
 class MCP3208 {
 public:
