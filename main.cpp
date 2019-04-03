@@ -41,7 +41,7 @@ int main() {
     mcp3208= new MCP3208(spi, SPI_CHIP_0);
 
     uint8_t humSensorChs[]= {0, 1};
-    soilHumSensor= new SEN0193(mcp3208, 1, humSensorChs, 10);
+    soilHumSensor= new SEN0193(mcp3208, 1, humSensorChs, 10, 0, 3.3);
 
     sunController= new SunController;
     wateringController= new WateringController(RPI_BPLUS_GPIO_J8_35);
