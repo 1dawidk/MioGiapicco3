@@ -37,7 +37,7 @@ void SEN0193::onRun() {
         avgCnt=0;
     }
 
-    Thread::pause(1000*60*5);
+    Thread::pause(1000);
 }
 
 void SEN0193::onStop() {
