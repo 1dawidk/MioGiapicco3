@@ -4,6 +4,7 @@ MCP3208::MCP3208(SPI *spi, uint8_t cs_pin) {
     this->spi_h= spi;
     this->cs_pin= cs_pin;
     readMutex= PTHREAD_MUTEX_INITIALIZER;
+    vRef= 3.3f;
 }
 
 float MCP3208::readCh(uint8_t ch) {
