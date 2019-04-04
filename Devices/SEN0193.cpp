@@ -11,8 +11,8 @@ SEN0193::SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgF
     chSums= new uint16_t[inChCnt];
     chAvgs= new uint8_t[inChCnt];
 
-    a= 100/(max-min);
-    b = -a*min;
+    a= 100/(min-max);
+    b = -a*max;
 }
 
 void SEN0193::onStart() {
