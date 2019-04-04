@@ -1,13 +1,13 @@
-#ifndef MIOGIAPICCO_SEN0193_H
-#define MIOGIAPICCO_SEN0193_H
+#ifndef MIOGIAPICCO_SOILHUMIDITYSENSOR_H
+#define MIOGIAPICCO_SOILHUMIDITYSENSOR_H
 
 
 #include "MCP3208.h"
 #include "dkulpaclibs/misc/Thread.h"
 
-class SEN0193 : public Thread {
+class SoilHumiditySensor : public Thread {
 public:
-    SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor, float min, float max);
+    SoilHumiditySensor(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor, float min, float max);
 
     uint8_t getLastValue(uint8_t ch);
     uint8_t getAvgValue(uint8_t ch);

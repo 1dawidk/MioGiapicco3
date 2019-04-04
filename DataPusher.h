@@ -2,7 +2,7 @@
 #define MIOGIAPICCO_DATAPUSHER_H
 
 #include "dkulpaclibs/misc/Thread.h"
-#include "Devices/SEN0193.h"
+#include "Devices/SoilHumiditySensor.h"
 #include "Devices/DHT22.h"
 #include "WateringController.h"
 #include "SunController.h"
@@ -14,7 +14,7 @@ class DataPusher :  public Thread{
 public:
     DataPusher(const string &url,
             DHT22 *dht22,
-            SEN0193 *soilHumSensor,
+            SoilHumiditySensor *soilHumSensor,
             SunController *sunController,
             WateringController *wateringController,
             WindController *windController);
@@ -29,7 +29,7 @@ private:
     string url;
 
     DHT22 *dht22;
-    SEN0193 *soilHumSensor;
+    SoilHumiditySensor *soilHumSensor;
     SunController *sunController;
     WateringController *wateringController;
     WindController *windController;

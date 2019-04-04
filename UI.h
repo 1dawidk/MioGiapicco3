@@ -14,25 +14,32 @@
 #include "SunController.h"
 #include "WateringController.h"
 #include "WindController.h"
+#include "Devices/SoilHumiditySensor.h"
 
 #define BUTTON_UP_NO    1
 #define BUTTON_DOWN_NO  0
 #define BUTTON_LEFT_NO  3
 #define BUTTON_RIGHT_NO 2
 
-#define MENU_ITEMS_NO   6
+#define MENU_ITEMS_NO   7
 #define TEMP_ID         0
 #define HUM_ID          1
-#define WATERING_ID     2
-#define WIND_ID         3
-#define SUN_ID          4
-#define TIME_ID         5
+#define SOIL_ID         2
+#define WATERING_ID     3
+#define WIND_ID         4
+#define SUN_ID          5
+#define TIME_ID         6
 
 using namespace std;
 
 class UI : public Thread {
 public:
-    void init(HD44780 *disp, DHT22 *dht22, SunController *sunController, WateringController *wateringController, WindController *windController);
+    void init(HD44780 *disp,
+            DHT22 *dht22,
+            SoilHumiditySensor *soilHumSensor,
+            SunController *sunController,
+            WateringController *wateringController,
+            WindController *windController);
 
 protected:
     void onStart() override;
@@ -47,6 +54,7 @@ private:
     HD44780 *display;
     ButtonsManager *buttonsManager;
     DHT22 *dht22;
+    SoilHumiditySensor *soilHumSensor;
     SunController *sunController;
     WateringController *wateringController;
     WindController *windController;

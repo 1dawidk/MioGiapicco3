@@ -2,7 +2,7 @@
 
 DataPusher::DataPusher(const string &url,
         DHT22 *dht22,
-        SEN0193 *soilHumSensor,
+        SoilHumiditySensor *soilHumSensor,
         SunController *sunController,
         WateringController *wateringController,
         WindController *windController) {

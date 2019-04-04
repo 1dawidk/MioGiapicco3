@@ -1,6 +1,6 @@
-#include "SEN0193.h"
+#include "SoilHumiditySensor.h"
 
-SEN0193::SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor, float min, float max) {
+SoilHumiditySensor::SoilHumiditySensor(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgFor, float min, float max) {
     this->mcp3208= mcp3208;
     this->inChCnt= inChCnt;
     this->inChs= inChs;
@@ -15,11 +15,11 @@ SEN0193::SEN0193(MCP3208 *mcp3208, uint8_t inChCnt, uint8_t *inChs, uint8_t avgF
     b = -a*max;
 }
 
-void SEN0193::onStart() {
+void SoilHumiditySensor::onStart() {
 
 }
 
-void SEN0193::onRun() {
+void SoilHumiditySensor::onRun() {
     avgCnt++;
     float voltage;
 
@@ -27,8 +27,6 @@ void SEN0193::onRun() {
         voltage= mcp3208->readCh(inChs[i]);
 
         chValues[i]= (uint8_t)(a*voltage + b);
-
-        std::cout << "Soil humidity - ch: " << i << ", voltage: " << voltage << "V, humidity: " << std::to_string(chValues[i]) << "%" << std::endl;
 
         chSums[i]+= chValues[i];
         if(avgCnt==avgFor){
@@ -41,22 +39,22 @@ void SEN0193::onRun() {
         avgCnt=0;
     }
 
-    Thread::pause(1000);
+    Thread::pause(5*60*1000); // delay 5min
 }
 
-void SEN0193::onStop() {
+void SoilHumiditySensor::onStop() {
 
 }
 
-uint8_t SEN0193::getLastValue(uint8_t ch) {
+uint8_t SoilHumiditySensor::getLastValue(uint8_t ch) {
     return chValues[ch];
 }
 
-uint8_t SEN0193::getAvgValue(uint8_t ch) {
+uint8_t SoilHumiditySensor::getAvgValue(uint8_t ch) {
     return chAvgs[ch];
 }
 
-uint8_t SEN0193::getAllChAvgLast() {
+uint8_t SoilHumiditySensor::getAllChAvgLast() {
     uint16_t sum= 0;
 
     for(int i=0; i<inChCnt; i++){
@@ -66,7 +64,7 @@ uint8_t SEN0193::getAllChAvgLast() {
     return (uint8_t)(sum/inChCnt);
 }
 
-uint8_t SEN0193::getAllChAvgAvg() {
+uint8_t SoilHumiditySensor::getAllChAvgAvg() {
     uint16_t sum= 0;
 
     for(int i=0; i<inChCnt; i++){

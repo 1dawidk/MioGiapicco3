@@ -10,7 +10,7 @@
 #include "Devices/PCA9685.h"
 #include "DataPusher.h"
 #include "Devices/MCP3208.h"
-#include "Devices/SEN0193.h"
+#include "Devices/SoilHumiditySensor.h"
 
 int main() {
     UI *ui= new UI;
@@ -24,7 +24,7 @@ int main() {
     DHT22 *dht22;
     HD44780 *display;
     MCP3208 *mcp3208;
-    SEN0193 *soilHumSensor;
+    SoilHumiditySensor *soilHumSensor;
 
     SunController *sunController;
     WateringController *wateringController;
@@ -41,7 +41,7 @@ int main() {
     mcp3208= new MCP3208(spi, SPI_CHIP_0);
 
     uint8_t humSensorChs[]= {0, 1};
-    soilHumSensor= new SEN0193(mcp3208, 1, humSensorChs, 10, 1.2, 2.7);
+    soilHumSensor= new SoilHumiditySensor(mcp3208, 1, humSensorChs, 10, 1.2, 2.7);
 
     sunController= new SunController;
     wateringController= new WateringController(RPI_BPLUS_GPIO_J8_35);
@@ -66,7 +66,7 @@ int main() {
     delay(1000);
     display->clrscr();
 
-    ui->init(display, dht22, sunController, wateringController, windController);
+    ui->init(display, dht22, soilHumSensor, sunController, wateringController, windController);
 
     while (ui->isRunning());
     ui->stop();

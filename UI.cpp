@@ -1,8 +1,14 @@
 #include "UI.h"
 
-void UI::init(HD44780 *disp, DHT22* dht22, SunController *sunController, WateringController *wateringController, WindController *windController) {
+void UI::init(HD44780 *disp,
+        DHT22* dht22,
+        SoilHumiditySensor *soilHumSensor,
+        SunController *sunController,
+        WateringController *wateringController,
+        WindController *windController) {
     this->display= disp;
     this->dht22= dht22;
+    this->soilHumSensor= soilHumSensor;
     this->sunController= sunController;
     this->wateringController= wateringController;
     this->windController= windController;
@@ -37,6 +43,7 @@ void UI::onStop() {
 void UI::refreshData() {
     menuLines[TEMP_ID]= "Temp: ";
     menuLines[HUM_ID]= "Hum: ";
+    menuLines[SOIL_ID]= "Soil: ";
     menuLines[WATERING_ID]= "Watering: ";
     menuLines[WIND_ID]= "Wind: ";
     menuLines[SUN_ID]= "Sun: ";
@@ -45,6 +52,7 @@ void UI::refreshData() {
 
     menuLines[TEMP_ID]+= to_string((int)dht22->getTemperature()) + "*C";
     menuLines[HUM_ID]+= to_string((int)dht22->getHumidity())+"%";
+    menuLines[SOIL_ID]+= to_string((int)soilHumSensor->getAllChAvgLast())+"%";
 
     if(wateringController->getMinLeft()==0)
         menuLines[WATERING_ID]+= "Off";
