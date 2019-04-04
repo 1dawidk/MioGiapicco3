@@ -28,7 +28,7 @@ void SEN0193::onRun() {
 
         chValues[i]= (uint8_t)(a*voltage + b);
 
-        std::cout << "Soil humidity - ch: " << i << ", voltage: " << voltage << "V, humidity: " << chValues[i] << "%" << std::endl;
+        std::cout << "Soil humidity - ch: " << i << ", voltage: " << voltage << "V, humidity: " << std::to_string(chValues[i]) << "%" << std::endl;
 
         chSums[i]+= chValues[i];
         if(avgCnt==avgFor){
