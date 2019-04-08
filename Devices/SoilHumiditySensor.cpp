@@ -27,7 +27,6 @@ void SoilHumiditySensor::onRun() {
         voltage= mcp3208->readCh(inChs[i]);
 
         chValues[i]= (uint8_t)(a*voltage + b);
-        std::cout << std::to_string(voltage);
 
         chSums[i]+= chValues[i];
         if(avgCnt==avgFor){
